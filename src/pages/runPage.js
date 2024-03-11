@@ -23,6 +23,68 @@ document.addEventListener("DOMContentLoaded", function () {
     textContent: APP_CONSTANTS.CAPTION,
   });
 
+  let rightContainer=createElement("div",{
+    className: "right-icons-container",
+  })
+
+  let speakerIcon=createElement('img',{
+    className: "icon top-icon",
+    src: 'src/assets/images/push-button.png',
+    alt: "img"
+  })
+
+  let fuelIcon=createElement('img',{
+    className: "icon top-icon",
+    src: 'src/assets/images/push-button.png',
+    alt: "img"
+  })
+
+  let speedIncIcon=createElement('img',{
+    className: "icon bottom-icon",
+    src: 'src/assets/images/push-button.png',
+    alt: "img"
+  })
+
+  let speedDecIcon=createElement('img',{
+    className: "icon bottom-icon",
+    src: 'src/assets/images/push-button.png',
+    alt: "img"
+  })
+  
+let leftContainer = createElement("div", {className: "left-icons-container"});
+
+let engineOffIcon = createElement("img", {
+  className: "engine-icon",
+  src: 'src/assets/images/push-button.png',
+  alt: "Engine Icon"
+});
+
+let bottomIconsContainer = createElement("div", {className: "bottom-icons"});
+
+let breakIcon = createElement("img", {
+  className: "icon",
+  src: 'src/assets/images/push-button.png',
+  alt: "Break Icon"
+});
+
+let accelerateIcon = createElement("img", {
+  className: "icon",
+  src: 'src/assets/images/push-button.png',
+  alt: "Accelerate Icon"
+});
+
+  
+  bottomIconsContainer.appendChild(breakIcon);
+  bottomIconsContainer.appendChild(accelerateIcon);
+  
+  leftContainer.appendChild(engineOffIcon);
+  leftContainer.appendChild(bottomIconsContainer);
+  
+  rightContainer.appendChild(speakerIcon);
+  rightContainer.appendChild(fuelIcon);
+  rightContainer.appendChild(speedIncIcon);
+  rightContainer.appendChild(speedDecIcon);
+
   startModeScreen.appendChild(startIcon);
   startModeScreen.appendChild(startMsg);
   startModeScreen.appendChild(caption);
@@ -149,6 +211,9 @@ document.addEventListener("DOMContentLoaded", function () {
   runModeContain.appendChild(steering);
   runModeScreen.appendChild(runModeContainer);
   runModeScreen.appendChild(runModeContain);
+  runModeScreen.appendChild(rightContainer);
+  runModeScreen.appendChild(leftContainer);
+
   // document.querySelector(".warn-div").style.display = "none";
   getTemp().then(temp => {
     console.log(temp);
@@ -323,4 +388,5 @@ async function getTemp() {
     throw new Error('There was a problem fetching the weather data:', error);
   }
 }
+
 

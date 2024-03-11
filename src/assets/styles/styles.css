@@ -175,3 +175,41 @@ body {
   max-width: 100px;
   height: auto;
 }
+.left-icons-container {
+  position: fixed;
+  top: 75%;
+  left: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 150px;
+}
+
+
+.right-icons-container {
+  position: fixed;
+  top: 75%;
+  right: 20%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  max-width: 150px;
+}
+
+.icon {
+  margin: 5px;
+  width: 50px;
+}
+
+.bottom-icons {
+  display: flex;
+}
+.engine-icon{
+    display: flex-start;
+    margin: 5px auto;
+    left:20%;
+    width: 50px;
+    margin-left: 2px;
+
+}
