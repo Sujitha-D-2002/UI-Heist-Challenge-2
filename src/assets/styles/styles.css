@@ -147,7 +147,7 @@ body {
     transform: rotate(-90deg);
   }
 }
-.main-div {
+.start-mode-screen {
   margin-top: 53px;
   display: flex;
   flex-direction: column;
@@ -157,7 +157,7 @@ body {
   height: 100vh;
   text-align: center;
 }
-.main-div > p:first-of-type {
+.start-mode-screen > p:first-of-type {
   margin-top: 12px;
   color: white;
   text-transform: uppercase;
@@ -171,7 +171,7 @@ body {
   font-size: 20px;
 }
 
-.main-div img {
+.start-mode-screen img {
   max-width: 100px;
   height: auto;
 }

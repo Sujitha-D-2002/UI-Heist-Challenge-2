@@ -3,6 +3,30 @@ import { APP_CONSTANTS } from "../constants/appConstants.js";
 
 
 document.addEventListener("DOMContentLoaded", function () {
+  let startModeScreen=createElement("div", {
+    className: "start-mode-screen"
+  });
+
+  let startIcon = createElement("img", {
+    className: "start-img",
+    src: 'src/assets/images/push-button.png',
+    alt: "img"
+  });
+
+  let startMsg=createElement("p", {
+    className: "start-msg",
+    textContent: APP_CONSTANTS.ENGINE_ON,
+  });
+
+  let caption=createElement("p", {
+    className: "caption",
+    textContent: APP_CONSTANTS.CAPTION,
+  });
+
+  startModeScreen.appendChild(startIcon);
+  startModeScreen.appendChild(startMsg);
+  startModeScreen.appendChild(caption);
+
   let runModeScreen = createElement("div", {
     className: "run-mode-screen"
   });
