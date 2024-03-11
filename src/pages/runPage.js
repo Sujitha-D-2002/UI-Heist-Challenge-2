@@ -3,6 +3,10 @@ import { APP_CONSTANTS } from "../constants/appConstants.js";
 
 
 document.addEventListener("DOMContentLoaded", function () {
+
+
+
+
   let startModeScreen=createElement("div", {
     className: "start-mode-screen"
   });
@@ -193,6 +197,68 @@ let accelerateIcon = createElement("img", {
   });
 
 
+
+
+  const leftTurnAudio = new Audio('src/assets/audio/car-start.wav');
+  const rightTurnAudio = new Audio('src/assets/audio/car-start.wav');
+  
+  document.onkeydown = function(e) {
+    const element = document.getElementById('steering-image');
+    switch (e.keyCode) {
+        case 37: 
+          rotationAngle += 10;
+          element.style.transform = `rotate(${rotationAngle}deg)`;
+          console.log(rotationAngle);
+          leftTurnAudio.currentTime = 0;
+          leftTurnAudio.play(); 
+          break;
+        case 39: 
+          rotationAngle -= 10;
+          element.style.transform = `rotate(${rotationAngle}deg)`;
+          rightTurnAudio.currentTime = 0; 
+          rightTurnAudio.play();
+          break;
+    }
+  };
+  
+  document.onkeyup = function(e) {
+    if (e.keyCode === 37) { 
+      leftTurnAudio.pause();
+      leftTurnAudio.currentTime = 0; 
+    } else if (e.keyCode === 39) { 
+      rightTurnAudio.pause();
+      rightTurnAudio.currentTime = 0;
+    }
+  };
+  
+
+document.onkeydown = function(e) {
+  const element = document.getElementById('steering-image');
+  switch (e.keyCode) {
+      case 37: 
+        rotationAngle += 10;
+        element.style.transform = `rotate(${rotationAngle}deg)`;
+        speedIncIcon.style.border = "8px solid yellow";
+        speedDecIcon.style.border = "none";
+        console.log(rotationAngle);
+        break;
+      case 39: 
+        rotationAngle -= 10;
+        element.style.transform = `rotate(${rotationAngle}deg)`;
+        speedDecIcon.style.border = "8px solid yellow";
+        speedIncIcon.style.border = "none";
+        break;
+  }
+};
+
+document.onkeyup = function(e) {
+  if (e.keyCode === 37 || e.keyCode === 39) {
+    speedIncIcon.style.border = "none";
+    speedDecIcon.style.border = "none";
+  }
+};
+
+
   warnDiv.appendChild(warnIcon);
   warnDiv.appendChild(warnMsg);
   currentSpeed.appendChild(warnDiv);
@@ -311,6 +377,7 @@ let accelerateIcon = createElement("img", {
     }
   
     if (event.key === "e" || event.key === "E") {
+      engineOffIcon.style.border="8px solid yellow";
       stopEngine();
     }
   });
@@ -320,6 +387,9 @@ let accelerateIcon = createElement("img", {
       clearInterval(intervalId);
       isAccelerating = false; // Reset the flag when key is released
       decreaseSpeed();
+    }
+    if (event.key === "e" || event.key === "E") {
+      engineOffIcon.style.border="0px";
     }
   });
   
@@ -433,5 +503,4 @@ async function getTemp() {
     throw new Error('There was a problem fetching the weather data:', error);
   }
 }
-
 
