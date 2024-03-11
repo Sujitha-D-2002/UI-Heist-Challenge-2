@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let startIcon = createElement("img", {
     className: "start-img",
-    src: 'src/assets/images/push-button.png',
+    src: 'src/assets/icons/power-button-on.png',
     alt: "img"
   });
 
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let speakerIcon=createElement('img',{
     className: "icon top-icon",
-    src: 'src/assets/images/push-button.png',
+    src: 'src/assets/icons/sound.png',
     alt: "img"
   })
 
@@ -41,13 +41,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let speedIncIcon=createElement('img',{
     className: "icon bottom-icon",
-    src: 'src/assets/images/push-button.png',
+    src: 'src/assets/icons/play-reverse-button.png',
     alt: "img"
   })
 
   let speedDecIcon=createElement('img',{
     className: "icon bottom-icon",
-    src: 'src/assets/images/push-button.png',
+    src: 'src/assets/icons/play-button.png',
     alt: "img"
   })
   
@@ -55,7 +55,7 @@ let leftContainer = createElement("div", {className: "left-icons-container"});
 
 let engineOffIcon = createElement("img", {
   className: "engine-icon",
-  src: 'src/assets/images/push-button.png',
+  src: 'src/assets/icons/power-button-off.png',
   alt: "Engine Icon"
 });
 
@@ -63,13 +63,13 @@ let bottomIconsContainer = createElement("div", {className: "bottom-icons"});
 
 let breakIcon = createElement("img", {
   className: "icon",
-  src: 'src/assets/images/push-button.png',
+  src: 'src/assets/icons/accelerator.png',
   alt: "Break Icon"
 });
 
 let accelerateIcon = createElement("img", {
   className: "icon",
-  src: 'src/assets/images/push-button.png',
+  src: 'src/assets/icons/brake.png',
   alt: "Accelerate Icon"
 });
 
@@ -332,7 +332,7 @@ let accelerateIcon = createElement("img", {
   }
   
   let rootElement = document.getElementById("root");
-  rootElement.appendChild(runModeScreen);
+  rootElement.appendChild(startModeScreen);
 });
 
 
