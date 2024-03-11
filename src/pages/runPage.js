@@ -242,7 +242,8 @@ let accelerateIcon = createElement("img", {
     console.error('There was a problem fetching the weather data:', error);
     currentTemp.textContent = "Temperature data unavailable";
   });
-  let image = document.getElementById("steering-image");
+
+
   let rotationAngle = 0;
   let remainingTime = 60;
   let interval = setInterval(function () {
@@ -281,33 +282,43 @@ let accelerateIcon = createElement("img", {
         }
       }, 5000);
     }
-    if (event.key === "ArrowRight") {
-      rotationAngle += 10;
-      image.style.transform = `rotate(${rotationAngle}deg)`;
-      console.log(rotationAngle);
-    }
-    else if (event.key === "ArrowLeft") {
-      rotationAngle -= 10;
-      image.style.transform = `rotate(${rotationAngle}deg)`;
-      console.log(rotationAngle);
-    }
+    // if (event.key === "ArrowRight") {
+    //   rotationAngle += 10;
+    //   image.style.transform = `rotate(${rotationAngle}deg)`;
+    //   console.log(rotationAngle);
+    // }
+    // else if (event.key === "ArrowLeft") {
+    //   rotationAngle -= 10;
+    //   image.style.transform = `rotate(${rotationAngle}deg)`;
+    //   console.log(rotationAngle);
+    // }
   });
 
-  let intervalId; 
-  document.addEventListener("keydown", function (event) {
+ 
 
+
+  let intervalId;
+  let isAccelerating = false; 
+  
+  document.addEventListener("keydown", function (event) {
     if (event.key === "a" || event.key === "A") {
-      intervalId = setInterval(function () {
-        increaseSpeed();
-      }, 1000);
-      let audio = new Audio('src/assets/audio/acceleration.mp3');
-      audio.play();
+      if (!isAccelerating) { 
+        isAccelerating = true; 
+        intervalId = setInterval(increaseSpeed, 1000);
+        let audio = new Audio('src/assets/audio/acceleration.mp3');
+        audio.play();
+      }
+    }
+  
+    if (event.key === "e" || event.key === "E") {
+      stopEngine();
     }
   });
   
   document.addEventListener("keyup", function (event) {
     if (event.key === "a" || event.key === "A") {
       clearInterval(intervalId);
+      isAccelerating = false; // Reset the flag when key is released
       decreaseSpeed();
     }
   });
@@ -317,9 +328,6 @@ let accelerateIcon = createElement("img", {
     let newSpeed = currentSpeed + 1;
     if (newSpeed <= 280) {
       speed.textContent = newSpeed;
-      // if(newSpeed>80){
-      //   document.querySelector(".warn-div").style.display = "block";
-      // }
     }
   }
   
@@ -331,8 +339,45 @@ let accelerateIcon = createElement("img", {
     }
   }
   
+  function stopEngine() {
+    clearInterval(intervalId);
+    isAccelerating = false; 
+    speed.textContent = 0; 
+  }
+  
+
+  let lastSKeyPressTime = 0;
+  const doublePressInterval = 40000; 
+  const audio = new Audio('src/assets/audio/car-start.wav');
+  
+  document.addEventListener('keyup', function(event) {
+    if (event.key.toUpperCase() === 'S') {
+      const now = new Date().getTime();
+      
+      if (now - lastSKeyPressTime <= doublePressInterval) {
+        audio.pause();
+        audio.currentTime = 0; 
+        goToNextScreen();
+      } else {
+        audio.play();
+      }
+      lastSKeyPressTime = now;
+    }
+  });
+  
+  function goToNextScreen() {
+    let rootElement = document.getElementById("root"); 
+    rootElement.innerHTML = '';
+    rootElement.appendChild(runModeScreen);
+    audio.pause();
+    audio.currentTime = 0; 
+  }
+  
+  
+  
+
   let rootElement = document.getElementById("root");
-  rootElement.appendChild(runModeScreen);
+  rootElement.appendChild(startModeScreen);
 });
 
 
