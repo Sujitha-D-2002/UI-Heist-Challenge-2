@@ -7,14 +7,12 @@ body {
   width: 100%;
   background-image: url("../images/Car-without-bg.png"),url("../images/bg-fixed.jpeg");
   background-repeat: no-repeat, no-repeat;
-  /* background-attachment: fixed,fixed; */
   background-size: contain, contain;
   background-position: center, center;
-  /* animation: float 6s ease-in-out infinite; */
 }
 
 .bg-rotate-left {
-  transform:  translatey(30px, 20px); /* Rotate the first background image by -10 degrees */
+  transform:  translatey(30px, 20px);
 }
 
 body {
@@ -246,21 +244,6 @@ body {
 #steering-image {
   transition: transform 0.5s ease; /* This ensures smooth rotation */
 }
-/* @keyframes float {
-	0% {
-		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-		transform: translatey(0px);
-	}
-	50% {
-		box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2);
-		transform: translatey(-20px);
-	}
-	100% {
-		box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6);
-		transform: translatey(0px);
-	}
-} */
-
 
 #loud-speaker{
   display:none;
