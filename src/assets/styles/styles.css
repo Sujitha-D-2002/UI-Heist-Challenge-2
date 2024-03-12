@@ -215,3 +215,18 @@ body {
     width: 80px;
     margin-left: 2px;
 }
+
+.steering-img.rotate {
+  transform: rotateY(-20deg);
+  transition: transform 0.2s ease-in-out; 
+}
+
+/* Keyframes for animation on hover (optional) */
+@keyframes rotate-left {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(-40deg); }
+}
+
+#steering-image {
+  transition: transform 0.5s ease; /* This ensures smooth rotation */
+}
