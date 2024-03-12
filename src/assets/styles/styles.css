@@ -265,3 +265,8 @@ body {
 #loud-speaker{
   display:none;
 }
+
+.camera-icon{
+  margin-top: 245px;
+  margin-left: 320px;
+}
