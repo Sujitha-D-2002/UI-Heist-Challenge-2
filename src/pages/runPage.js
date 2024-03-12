@@ -3,7 +3,7 @@ import { APP_CONSTANTS } from "../constants/appConstants.js";
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  let startModeScreen=createElement("div", {
+  let startModeScreen = createElement("div", {
     className: "start-mode-screen"
   });
 
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     alt: "img"
   });
 
-  let hangImage=createElement("img", {
+  let hangImage = createElement("img", {
     className: "hang-img",
     src: 'src/assets/images/monkey-fixed.png',
     alt: "img"
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let fuelIcon = createElement('img', {
     className: "icon top-icon",
-    src: 'src/assets/images/push-button.png',
+    src: 'src/assets/icons/full-power.png',
     alt: "img"
   })
 
@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
   rightContainer.appendChild(fuelIcon);
   rightContainer.appendChild(speedIncIcon);
   rightContainer.appendChild(speedDecIcon);
-  
+
   startModeScreen.appendChild(hangImage);
   startModeScreen.appendChild(startIcon);
   startModeScreen.appendChild(startMsg);
@@ -161,9 +161,9 @@ document.addEventListener("DOMContentLoaded", function () {
     className: "progress",
   });
 
-  let hanganimateImage=createElement("img", {
+  let hanganimateImage = createElement("img", {
     className: "hang-animate-img",
-    src: 'src/assets/images/1601312667_151452.gif',
+    src: 'src/assets/images/monkey-fixed.png',
     alt: "img"
   });
 
@@ -206,85 +206,84 @@ document.addEventListener("DOMContentLoaded", function () {
     alt: "img"
   });
 
-
-
-
-  let rotationAngleforbg = 0; 
+  let rotationAngleforbg = 0;
   const leftTurnAudio = new Audio('src/assets/audio/car-moving.wav');
   const rightTurnAudio = new Audio('src/assets/audio/car-moving.wav');
   let isLeftTurnAudioPlaying = false;
-let isRightTurnAudioPlaying = false;
+  let isRightTurnAudioPlaying = false;
 
-document.addEventListener("keydown", function(event) {
-  const element = document.getElementById('steering-image');
-  switch (event.keyCode) {
+  document.addEventListener("keydown", function (event) {
+    const element = document.getElementById('steering-image');
+    switch (event.keyCode) {
       case 37: // Left arrow key
-          rotationAngleforbg += 10;
-          element.style.transform = `rotate(${rotationAngleforbg}deg)`;
+        rotationAngleforbg += 10;
+        element.style.transform = `rotate(${rotationAngleforbg}deg)`;
 
-          document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
+        document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
 
-          if (!isLeftTurnAudioPlaying) {
-            leftTurnAudio.currentTime = 0;
-            leftTurnAudio.play(); 
-            isLeftTurnAudioPlaying = true;
-          }
-          break;
+        if (!isLeftTurnAudioPlaying) {
+          leftTurnAudio.currentTime = 0;
+          leftTurnAudio.play();
+          isLeftTurnAudioPlaying = true;
+        }
+        break;
       case 39: // Right arrow key
-          rotationAngleforbg -= 10;
-          element.style.transform = `rotate(${rotationAngleforbg}deg)`;
+        rotationAngleforbg -= 10;
+        element.style.transform = `rotate(${rotationAngleforbg}deg)`;
 
-          document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
+        document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
 
-          if (!isRightTurnAudioPlaying) {
-            rightTurnAudio.currentTime = 0; 
-            rightTurnAudio.play();
-            isRightTurnAudioPlaying = true;
-          }
-          break;
-  }
-});
-
-
-
-  document.addEventListener("keyup", function(event) {
-    if (event.keyCode === 37) { // Left key up
-        leftTurnAudio.pause();
-        leftTurnAudio.currentTime = 0; 
-        isLeftTurnAudioPlaying = false;
-    } else if (event.keyCode === 39) { // Right key up
-        rightTurnAudio.pause();
-        rightTurnAudio.currentTime = 0;
-        isRightTurnAudioPlaying = false;
+        if (!isRightTurnAudioPlaying) {
+          rightTurnAudio.currentTime = 0;
+          rightTurnAudio.play();
+          isRightTurnAudioPlaying = true;
+        }
+        break;
     }
-});
-  
+  });
 
-document.onkeydown = function(e) {
-  const element = document.getElementById('steering-image');
-  switch (e.keyCode) {
-      case 37: 
+
+
+  document.addEventListener("keyup", function (event) {
+    if (event.keyCode === 37) { // Left key up
+      leftTurnAudio.pause();
+      leftTurnAudio.currentTime = 0;
+      isLeftTurnAudioPlaying = false;
+      hanganimateImage.src = "src/assets/images/1601312667_151452.gif";
+    } else if (event.keyCode === 39) { // Right key up
+      rightTurnAudio.pause();
+      rightTurnAudio.currentTime = 0;
+      isRightTurnAudioPlaying = false;
+      hanganimateImage.src = "src/assets/images/1601312667_151452.gif";
+    }
+  });
+
+
+  document.onkeydown = function (e) {
+    const element = document.getElementById('steering-image');
+    switch (e.keyCode) {
+      case 37:
         rotationAngle += 10;
         element.style.transform = `rotate(${rotationAngle}deg)`;
         speedIncIcon.style.border = "5px solid yellow";
         speedDecIcon.style.border = "5px solid #BAC8D3";
         console.log(rotationAngle);
         break;
-      case 39: 
+      case 39:
         rotationAngle -= 10;
         element.style.transform = `rotate(${rotationAngle}deg)`;
         speedDecIcon.style.border = "5px solid yellow";
         speedIncIcon.style.border = "5px solid #BAC8D3";
         break;
-  }
-};
+    }
+  };
 
-document.onkeyup = function(e) {
-  if (e.keyCode === 37 || e.keyCode === 39) {
-    speedIncIcon.style.border = "5px solid #BAC8D3";
-    speedDecIcon.style.border = "5px solid #BAC8D3";
-  }
-};
+  document.onkeyup = function (e) {
+    if (e.keyCode === 37 || e.keyCode === 39) {
+      speedIncIcon.style.border = "5px solid #BAC8D3";
+      speedDecIcon.style.border = "5px solid #BAC8D3";
+    }
+  };
 
 
   warnDiv.appendChild(warnIcon);
@@ -338,17 +337,29 @@ document.onkeyup = function(e) {
     currentTemp.textContent = "Temperature data unavailable";
   });
 
-
   let rotationAngle = 0;
   let remainingTime = 60;
-  let interval = setInterval(function () {
+  let isIntervalRunning = true; // Flag to track if the interval is running
+  let interval;
+  let lastValue;
+
+  function decrementTime() {
     remainingTime--;
     quantity.textContent = remainingTime;
     if (remainingTime <= 0) {
       clearInterval(interval);
       quantity.textContent = 0;
     }
-  }, 5000);
+    if (parseInt(quantity.textContent) <= 15) {
+      fuelIcon.src = 'src/assets/icons/low-power.png'
+    }
+  }
+
+  function startInterval() {
+    interval = setInterval(decrementTime, 5000);
+  }
+
+  startInterval();
 
   // functinality for S KEY press
   let lastSKeyPressTime = 0;
@@ -376,15 +387,15 @@ document.onkeyup = function(e) {
     }
   });
 
-function goToNextScreen() {
+  function goToNextScreen() {
     let rootElement = document.getElementById("root");
     rootElement.innerHTML = '';
-    rootElement.appendChild(runModeScreen); 
+    rootElement.appendChild(runModeScreen);
     // document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
     // hangImage.src="src/assets/images/1601312667_151452.gif";
     audio.pause();
     audio.currentTime = 0;
-}
+  }
 
 
 
@@ -392,6 +403,7 @@ function goToNextScreen() {
     if (event.key === "r" || event.key === "R") {
       if (quantity) {
         quantity.textContent = 60; // Reset quantity to 60
+        fuelIcon.src = 'src/assets/icons/full-power.png'
       } else {
         console.error("Quantity element not found");
       }
@@ -424,34 +436,47 @@ function goToNextScreen() {
   let startaudio;
 
   document.addEventListener("keydown", function (event) {
-    if (!runModeScreen) return; 
-    console.log("SUN "+runModeScreen);
+    if (!runModeScreen) return;
+    console.log("SUN " + runModeScreen);
     if ((event.key === "a" || event.key === "A") && isSecondPage) {
       if (!isAccelerating) {
         isAccelerating = true;
         intervalId = setInterval(increaseSpeed, 500);
         startaudio = new Audio('src/assets/audio/acceleration.mp3');
         document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
+        hanganimateImage.src = "src/assets/images/1601312667_151452.gif";
         startaudio.play();
         breakIcon.style.border = "4px solid yellow";
         accelerateIcon.style.border = "5px solid #BAC8D3";
+        if (!isIntervalRunning) {
+          quantity.textContent = lastValue;
+          startInterval(); // Resume the interval
+          isIntervalRunning = true;
+
+        }
       }
     }
 
     if (event.key === "e" || event.key === "E") {
-      engineOffIcon.src="src/assets/icons/power-button-on.png";
+      accelerateIcon.style.border = "5px solid #BAC8D3";
+      engineOffIcon.src = "src/assets/icons/power-button-on.png";
       document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/bg-fixed.jpeg")';
+      hanganimateImage.src = "src/assets/images/monkey-fixed.png";
+      if (isIntervalRunning) {
+        lastValue = quantity.textContent;
+        clearInterval(interval); // Pause the interval
+        isIntervalRunning = false;
+        quantity.textContent = lastValue;
+      }
       stopEngine();
     }
 
     if ((event.key === "b" || event.key === "B") && isSecondPage) {
-      
-      // hanganimateImage.src = hangImage.src; 
-      
-       let brakeaudio = new Audio('src/assets/audio/car-brake-fx.wav');
-        document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/bg-fixed.jpeg")';
-        brakeaudio.play();
-        isBrake=true;
+      hanganimateImage.src = "src/assets/images/monkey-fixed.png";
+      let brakeaudio = new Audio('src/assets/audio/car-brake-fx.wav');
+      document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/bg-fixed.jpeg")';
+      brakeaudio.play();
+      isBrake = true;
       accelerateIcon.style.border = "4px solid yellow";
 
 
@@ -467,25 +492,23 @@ function goToNextScreen() {
   });
 
   document.addEventListener("keyup", function (event) {
-    if (!runModeScreen) return; 
+    if (!runModeScreen) return;
     if ((event.key === "a" || event.key === "A") && isSecondPage) {
       clearInterval(intervalId);
       isAccelerating = false;
-      intervalId = setInterval(decreaseSpeed, 5000);
+      decreaseSpeed();
       let startaudio = new Audio('src/assets/audio/acceleration.mp3');
       startaudio.pause();
-     // startaudio.currentTime = 0; 
+      // startaudio.currentTime = 0; 
       breakIcon.style.border = "5px solid #BAC8D3";
     }
 
     if ((event.key === "b" || event.key === "B") && isSecondPage) {
-      console.log("HEY REASSE"+isSecondPage);
-      // hanganimateImage.src = 'src/assets/images/1601312667_151452.gif';
-
+      console.log("HEY REASSE" + isSecondPage);
       let brakeaudio = new Audio('src/assets/audio/car-brake-fx.wav');
       brakeaudio.pause();
-      isBrake=false;
-     // startaudio.currentTime = 0;
+      isBrake = false;
+      // startaudio.currentTime = 0;
     }
 
     if((event.key=='h' || event.key=='H') && isSecondPage){
@@ -495,7 +518,7 @@ function goToNextScreen() {
       speakerIcon.style.border = "0px";      }
 
     if ((event.key === "e" || event.key === "E") && isSecondPage) {
-      engineOffIcon.style.border="0px";
+      engineOffIcon.style.border = "0px";
     }
   });
 
@@ -517,6 +540,10 @@ function goToNextScreen() {
     if (newSpeed >= 0) {
       speed.textContent = newSpeed;
     }
+    if (newSpeed < 80) {
+      warnIcon.style.display = "none";
+      warnMsg.style.display = "none";
+    }
   }
 
 
@@ -532,7 +559,7 @@ function goToNextScreen() {
     speed.textContent = 0;
   }
 
- 
+
 
   let rootElement = document.getElementById("root");
   rootElement.appendChild(startModeScreen);
