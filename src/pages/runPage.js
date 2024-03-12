@@ -331,6 +331,46 @@ document.onkeyup = function(e) {
     }
   }, 5000);
 
+  // functinality for S KEY press
+  let lastSKeyPressTime = 0;
+  const doublePressInterval = 40000;
+  const audio = new Audio('src/assets/audio/start-engine.mp3');
+  let isFirstPage = true;
+  // Variable to track if the user is on the second page
+  let isSecondPage = false;
+
+
+  document.addEventListener('keyup', function (event) {
+    if (event.key.toUpperCase() === 'S' && isFirstPage) {
+      const now = new Date().getTime();
+
+      if (now - lastSKeyPressTime <= doublePressInterval) {
+        audio.pause();
+        audio.currentTime = 0;
+        // Update page state flags
+      isFirstPage = false;
+      isSecondPage = true; 
+        goToNextScreen();
+
+      } else {
+        audio.play();
+      }
+      lastSKeyPressTime = now;
+    }
+  });
+
+function goToNextScreen() {
+    let rootElement = document.getElementById("root");
+    rootElement.innerHTML = '';
+    rootElement.appendChild(runModeScreen); 
+    // document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
+    // hangImage.src="src/assets/images/1601312667_151452.gif";
+    audio.pause();
+    audio.currentTime = 0;
+}
+
+
+
   document.addEventListener("keydown", function (event) {
     if (event.key === "r" || event.key === "R") {
       if (quantity) {
@@ -360,13 +400,16 @@ document.onkeyup = function(e) {
     }
   });
 
+
   let intervalId;
   let isAccelerating = false;
   let isBrake = false;
   let startaudio;
 
   document.addEventListener("keydown", function (event) {
-    if (event.key === "a" || event.key === "A") {
+    if (!runModeScreen) return; 
+    console.log("SUN "+runModeScreen);
+    if ((event.key === "a" || event.key === "A") && isSecondPage) {
       if (!isAccelerating) {
         isAccelerating = true;
         intervalId = setInterval(increaseSpeed, 500);
@@ -384,7 +427,9 @@ document.onkeyup = function(e) {
       stopEngine();
     }
 
-    if (event.key === "b" || event.key === "B") {
+    if ((event.key === "b" || event.key === "B") && isSecondPage) {
+      console.log("HEY REASSEdd"+isSecondPage);
+
       let brakeaudio = new Audio('src/assets/audio/car-brake-fx.wav');
       document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/bg-fixed.jpeg")';
       brakeaudio.play();
@@ -395,23 +440,25 @@ document.onkeyup = function(e) {
   });
 
   document.addEventListener("keyup", function (event) {
-    if (event.key === "a" || event.key === "A") {
+    if (!runModeScreen) return; 
+    if ((event.key === "a" || event.key === "A") && isSecondPage) {
       clearInterval(intervalId);
       isAccelerating = false;
       intervalId = setInterval(decreaseSpeed, 5000);
       let startaudio = new Audio('src/assets/audio/acceleration.mp3');
       startaudio.pause();
-      startaudio.currentTime = 0; // Reset audio to the beginning
+     // startaudio.currentTime = 0; 
       breakIcon.style.border = "5px solid #BAC8D3";
     }
 
-    if (event.key === "b" || event.key === "B") {
+    if ((event.key === "b" || event.key === "B") && isSecondPage) {
+      console.log("HEY REASSE"+isSecondPage);
       let brakeaudio = new Audio('src/assets/audio/car-brake-fx.wav');
       brakeaudio.pause();
       isBrake=false;
-      startaudio.currentTime = 0;
+     // startaudio.currentTime = 0;
     }
-    if (event.key === "e" || event.key === "E") {
+    if ((event.key === "e" || event.key === "E") && isSecondPage) {
       engineOffIcon.style.border="0px";
     }
   });
@@ -449,34 +496,7 @@ document.onkeyup = function(e) {
     speed.textContent = 0;
   }
 
-  let lastSKeyPressTime = 0;
-  const doublePressInterval = 40000;
-  const audio = new Audio('src/assets/audio/start-engine.mp3');
-
-  document.addEventListener('keyup', function (event) {
-    if (event.key.toUpperCase() === 'S') {
-      const now = new Date().getTime();
-
-      if (now - lastSKeyPressTime <= doublePressInterval) {
-        audio.pause();
-        audio.currentTime = 0;
-        goToNextScreen();
-      } else {
-        audio.play();
-      }
-      lastSKeyPressTime = now;
-    }
-  });
-
-  function goToNextScreen() {
-    let rootElement = document.getElementById("root");
-    rootElement.innerHTML = '';
-    rootElement.appendChild(runModeScreen); 
-    // document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
-    // hangImage.src="src/assets/images/1601312667_151452.gif";
-    audio.pause();
-    audio.currentTime = 0;
-}
+ 
 
   let rootElement = document.getElementById("root");
   rootElement.appendChild(startModeScreen);
