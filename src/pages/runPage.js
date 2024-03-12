@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
     alt: "img"
   })
 
+
   let leftContainer = createElement("div", { className: "left-icons-container" });
 
   let engineOffIcon = createElement("img", {
@@ -207,6 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
   let rotationAngleforbg = 0; 
   const leftTurnAudio = new Audio('src/assets/audio/car-moving.wav');
   const rightTurnAudio = new Audio('src/assets/audio/car-moving.wav');
@@ -353,7 +355,6 @@ document.onkeyup = function(e) {
   const doublePressInterval = 40000;
   const audio = new Audio('src/assets/audio/start-engine.mp3');
   let isFirstPage = true;
-  // Variable to track if the user is on the second page
   let isSecondPage = false;
 
 
@@ -364,7 +365,6 @@ document.onkeyup = function(e) {
       if (now - lastSKeyPressTime <= doublePressInterval) {
         audio.pause();
         audio.currentTime = 0;
-        // Update page state flags
       isFirstPage = false;
       isSecondPage = true; 
         goToNextScreen();
@@ -445,15 +445,25 @@ function goToNextScreen() {
     }
 
     if ((event.key === "b" || event.key === "B") && isSecondPage) {
-      console.log("HEY REASSEdd"+isSecondPage);
-
-      let brakeaudio = new Audio('src/assets/audio/car-brake-fx.wav');
-      document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/bg-fixed.jpeg")';
-      brakeaudio.play();
-      isBrake=true;
+      
+      // hanganimateImage.src = hangImage.src; 
+      
+       let brakeaudio = new Audio('src/assets/audio/car-brake-fx.wav');
+        document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/bg-fixed.jpeg")';
+        brakeaudio.play();
+        isBrake=true;
       accelerateIcon.style.border = "4px solid yellow";
+
+
       brake();
     }
+ 
+    if((event.key=='h' || event.key=='H') && isSecondPage){
+    let hornAudio=new Audio('src/assets/audio/car-horn.mp3');
+       hornAudio.play();
+       speakerIcon.src="src/assets/icons/speaker-filled.png";
+       speakerIcon.style.border = "4px solid yellow";
+      }
   });
 
   document.addEventListener("keyup", function (event) {
@@ -470,11 +480,20 @@ function goToNextScreen() {
 
     if ((event.key === "b" || event.key === "B") && isSecondPage) {
       console.log("HEY REASSE"+isSecondPage);
+      // hanganimateImage.src = 'src/assets/images/1601312667_151452.gif';
+
       let brakeaudio = new Audio('src/assets/audio/car-brake-fx.wav');
       brakeaudio.pause();
       isBrake=false;
      // startaudio.currentTime = 0;
     }
+
+    if((event.key=='h' || event.key=='H') && isSecondPage){
+      let hornAudio=new Audio('src/assets/audio/car-horn.mp3');
+      hornAudio.pause();
+      speakerIcon.src="src/assets/icons/sound.png";
+      speakerIcon.style.border = "0px";      }
+
     if ((event.key === "e" || event.key === "E") && isSecondPage) {
       engineOffIcon.style.border="0px";
     }
@@ -572,4 +591,6 @@ async function getTemp() {
     throw new Error('There was a problem fetching the weather data:', error);
   }
 }
+
+// Audio files listening
 

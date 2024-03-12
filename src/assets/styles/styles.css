@@ -260,3 +260,8 @@ body {
 		transform: translatey(0px);
 	}
 } */
+
+
+#loud-speaker{
+  display:none;
+}
