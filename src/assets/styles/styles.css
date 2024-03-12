@@ -12,6 +12,11 @@ body {
   background-position: center, center;
   /* animation: float 6s ease-in-out infinite; */
 }
+
+.bg-rotate-left {
+  transform:  translatey(30px, 20px); /* Rotate the first background image by -10 degrees */
+}
+
 body {
   font-family: "Source Sans 3", sans-serif;
   font-style: normal;
