@@ -80,6 +80,24 @@ document.addEventListener("DOMContentLoaded", function () {
     alt: "Accelerate Icon"
   });
 
+  let camIcon=createElement("img",{
+    className: "cam-icon",
+    src: 'src/assets/images/camera.png',
+    alt: "img"
+  })
+
+ let videoContainer=createElement("div",{
+    className:"video-container"
+ })
+ let videoIcon = document.createElement("video");
+ videoIcon.id = "vid";
+ videoIcon.muted = true;
+ videoIcon.autoplay = true;
+ 
+
+
+  
+  videoContainer.appendChild(videoIcon)
 
   bottomIconsContainer.appendChild(breakIcon);
   bottomIconsContainer.appendChild(accelerateIcon);
@@ -207,6 +225,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 
+ 
+ 
 
 
   let rotationAngleforbg = 0; 
@@ -308,6 +328,7 @@ document.onkeyup = function(e) {
   runModeScreen.appendChild(runModeContain);
   runModeScreen.appendChild(rightContainer);
   runModeScreen.appendChild(leftContainer);
+  runModeScreen.appendChild(videoContainer);
 
   // document.querySelector(".warn-div").style.display = "none";
   getTemp().then(temp => {
@@ -464,7 +485,28 @@ function goToNextScreen() {
        speakerIcon.src="src/assets/icons/speaker-filled.png";
        speakerIcon.style.border = "4px solid yellow";
       }
+
+      if((event.key=="C" || event.key=='c')&& isSecondPage){
+        let videoElement = document.getElementById("vid");
+        videoElement.muted = true;
+
+        navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: true,
+        })
+        .then((stream) => {
+            videoElement.srcObject = stream;
+            videoElement.addEventListener("loadedmetadata", () => {
+                videoElement.play();
+            });
+        })
+        .catch(error => {
+            console.error("Error accessing media devices:", error);
+            alert("Error accessing camera: " + error.message); 
+        });
+      }
   });
+
 
   document.addEventListener("keyup", function (event) {
     if (!runModeScreen) return; 
@@ -552,6 +594,8 @@ function getCurrentTime() {
 
 }
 
+
+
 function getGreetings() {
 
   const currentTime = new Date();
@@ -591,6 +635,4 @@ async function getTemp() {
     throw new Error('There was a problem fetching the weather data:', error);
   }
 }
-
-// Audio files listening
 
