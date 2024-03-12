@@ -13,6 +13,12 @@ document.addEventListener("DOMContentLoaded", function () {
     alt: "img"
   });
 
+  let hangImage=createElement("img", {
+    className: "hang-img",
+    src: 'src/assets/images/monkey-fixed.png',
+    alt: "img"
+  });
+
   let startMsg = createElement("p", {
     className: "start-msg",
     textContent: APP_CONSTANTS.ENGINE_ON,
@@ -84,7 +90,8 @@ document.addEventListener("DOMContentLoaded", function () {
   rightContainer.appendChild(fuelIcon);
   rightContainer.appendChild(speedIncIcon);
   rightContainer.appendChild(speedDecIcon);
-
+  
+  startModeScreen.appendChild(hangImage);
   startModeScreen.appendChild(startIcon);
   startModeScreen.appendChild(startMsg);
   startModeScreen.appendChild(caption);
@@ -151,6 +158,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let progress = createElement("div", {
     className: "progress",
+  });
+
+  let hanganimateImage=createElement("img", {
+    className: "hang-animate-img",
+    src: 'src/assets/images/1601312667_151452.gif',
+    alt: "img"
   });
 
   progressDiv.appendChild(progress);
@@ -234,23 +247,23 @@ document.onkeydown = function(e) {
       case 37: 
         rotationAngle += 10;
         element.style.transform = `rotate(${rotationAngle}deg)`;
-        speedIncIcon.style.border = "8px solid yellow";
-        speedDecIcon.style.border = "none";
+        speedIncIcon.style.border = "5px solid yellow";
+        speedDecIcon.style.border = "5px solid #BAC8D3";
         console.log(rotationAngle);
         break;
       case 39: 
         rotationAngle -= 10;
         element.style.transform = `rotate(${rotationAngle}deg)`;
-        speedDecIcon.style.border = "8px solid yellow";
-        speedIncIcon.style.border = "none";
+        speedDecIcon.style.border = "5px solid yellow";
+        speedIncIcon.style.border = "5px solid #BAC8D3";
         break;
   }
 };
 
 document.onkeyup = function(e) {
   if (e.keyCode === 37 || e.keyCode === 39) {
-    speedIncIcon.style.border = "none";
-    speedDecIcon.style.border = "none";
+    speedIncIcon.style.border = "5px solid #BAC8D3";
+    speedDecIcon.style.border = "5px solid #BAC8D3";
   }
 };
 
@@ -271,6 +284,7 @@ document.onkeyup = function(e) {
   runModeContain.appendChild(currentDisel);
   runModeContain.appendChild(currentSpeed);
   runModeContain.appendChild(steering);
+  runModeScreen.appendChild(hanganimateImage);
   runModeScreen.appendChild(runModeContainer);
   runModeScreen.appendChild(runModeContain);
   runModeScreen.appendChild(rightContainer);
@@ -349,13 +363,15 @@ document.onkeyup = function(e) {
   let intervalId;
   let isAccelerating = false;
   let isBrake = false;
+  let startaudio;
 
   document.addEventListener("keydown", function (event) {
     if (event.key === "a" || event.key === "A") {
       if (!isAccelerating) {
         isAccelerating = true;
         intervalId = setInterval(increaseSpeed, 500);
-        let startaudio = new Audio('src/assets/audio/acceleration.mp3');
+        startaudio = new Audio('src/assets/audio/acceleration.mp3');
+        document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
         startaudio.play();
         breakIcon.style.border = "4px solid yellow";
         accelerateIcon.style.border = "5px solid #BAC8D3";
@@ -363,12 +379,14 @@ document.onkeyup = function(e) {
     }
 
     if (event.key === "e" || event.key === "E") {
-      engineOffIcon.style.border="8px solid yellow";
+      engineOffIcon.src="src/assets/icons/power-button-on.png";
+      document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/bg-fixed.jpeg")';
       stopEngine();
     }
 
     if (event.key === "b" || event.key === "B") {
       let brakeaudio = new Audio('src/assets/audio/car-brake-fx.wav');
+      document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/bg-fixed.jpeg")';
       brakeaudio.play();
       isBrake=true;
       accelerateIcon.style.border = "4px solid yellow";
@@ -392,7 +410,6 @@ document.onkeyup = function(e) {
       brakeaudio.pause();
       isBrake=false;
       startaudio.currentTime = 0;
-    
     }
     if (event.key === "e" || event.key === "E") {
       engineOffIcon.style.border="0px";
@@ -454,13 +471,12 @@ document.onkeyup = function(e) {
   function goToNextScreen() {
     let rootElement = document.getElementById("root");
     rootElement.innerHTML = '';
-    rootElement.appendChild(runModeScreen);
+    rootElement.appendChild(runModeScreen); 
+    // document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
+    // hangImage.src="src/assets/images/1601312667_151452.gif";
     audio.pause();
     audio.currentTime = 0;
-  }
-
-
-
+}
 
   let rootElement = document.getElementById("root");
   rootElement.appendChild(startModeScreen);
