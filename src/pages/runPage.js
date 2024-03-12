@@ -3,7 +3,7 @@ import { APP_CONSTANTS } from "../constants/appConstants.js";
 
 
 document.addEventListener("DOMContentLoaded", function () {
-  let startModeScreen=createElement("div", {
+  let startModeScreen = createElement("div", {
     className: "start-mode-screen"
   });
 
@@ -13,73 +13,73 @@ document.addEventListener("DOMContentLoaded", function () {
     alt: "img"
   });
 
-  let startMsg=createElement("p", {
+  let startMsg = createElement("p", {
     className: "start-msg",
     textContent: APP_CONSTANTS.ENGINE_ON,
   });
 
-  let caption=createElement("p", {
+  let caption = createElement("p", {
     className: "caption",
     textContent: APP_CONSTANTS.CAPTION,
   });
 
-  let rightContainer=createElement("div",{
+  let rightContainer = createElement("div", {
     className: "right-icons-container",
   })
 
-  let speakerIcon=createElement('img',{
+  let speakerIcon = createElement('img', {
     className: "icon top-icon",
     src: 'src/assets/icons/sound.png',
     alt: "img"
   })
 
-  let fuelIcon=createElement('img',{
+  let fuelIcon = createElement('img', {
     className: "icon top-icon",
     src: 'src/assets/images/push-button.png',
     alt: "img"
   })
 
-  let speedIncIcon=createElement('img',{
+  let speedIncIcon = createElement('img', {
     className: "icon bottom-icon",
     src: 'src/assets/icons/play-reverse-button.png',
     alt: "img"
   })
 
-  let speedDecIcon=createElement('img',{
+  let speedDecIcon = createElement('img', {
     className: "icon bottom-icon",
     src: 'src/assets/icons/play-button.png',
     alt: "img"
   })
-  
-let leftContainer = createElement("div", {className: "left-icons-container"});
 
-let engineOffIcon = createElement("img", {
-  className: "engine-icon",
-  src: 'src/assets/icons/power-button-off.png',
-  alt: "Engine Icon"
-});
+  let leftContainer = createElement("div", { className: "left-icons-container" });
 
-let bottomIconsContainer = createElement("div", {className: "bottom-icons"});
+  let engineOffIcon = createElement("img", {
+    className: "engine-icon",
+    src: 'src/assets/icons/power-button-off.png',
+    alt: "Engine Icon"
+  });
 
-let breakIcon = createElement("img", {
-  className: "icon",
-  src: 'src/assets/icons/accelerator.png',
-  alt: "Break Icon"
-});
+  let bottomIconsContainer = createElement("div", { className: "bottom-icons" });
 
-let accelerateIcon = createElement("img", {
-  className: "icon",
-  src: 'src/assets/icons/brake.png',
-  alt: "Accelerate Icon"
-});
+  let breakIcon = createElement("img", {
+    className: "icon accelerator",
+    src: 'src/assets/icons/accelerator.png',
+    alt: "Break Icon"
+  });
 
-  
+  let accelerateIcon = createElement("img", {
+    className: "icon brake",
+    src: 'src/assets/icons/brake.png',
+    alt: "Accelerate Icon"
+  });
+
+
   bottomIconsContainer.appendChild(breakIcon);
   bottomIconsContainer.appendChild(accelerateIcon);
-  
+
   leftContainer.appendChild(engineOffIcon);
   leftContainer.appendChild(bottomIconsContainer);
-  
+
   rightContainer.appendChild(speakerIcon);
   rightContainer.appendChild(fuelIcon);
   rightContainer.appendChild(speedIncIcon);
@@ -174,7 +174,7 @@ let accelerateIcon = createElement("img", {
 
   let warnMsg = createElement("div", {
     className: "warn-msg",
-    textContent:APP_CONSTANTS.WARNING_MSG,
+    textContent: APP_CONSTANTS.WARNING_MSG,
   });
   let speed = createElement("div", {
     className: "current-speed-quantity",
@@ -186,7 +186,7 @@ let accelerateIcon = createElement("img", {
   });
 
   let steering = createElement("img", {
-    id:"steering-image",
+    id: "steering-image",
     className: "steering-img rotated",
     src: 'src/assets/images/steering-wheel.png',
     alt: "img"
@@ -265,9 +265,9 @@ let accelerateIcon = createElement("img", {
       let progressBar = document.querySelector('.progress');
       if (progressBar) {
         progressBar.style.width = '0';
-        progressBar.style.animation = 'none'; 
-        void progressBar.offsetWidth; 
-        progressBar.style.animation = 'fill 1000s linear forwards'; 
+        progressBar.style.animation = 'none';
+        void progressBar.offsetWidth;
+        progressBar.style.animation = 'fill 1000s linear forwards';
       } else {
         console.error('Progress bar not found');
       }
@@ -282,55 +282,69 @@ let accelerateIcon = createElement("img", {
         }
       }, 5000);
     }
-    // if (event.key === "ArrowRight") {
-    //   rotationAngle += 10;
-    //   image.style.transform = `rotate(${rotationAngle}deg)`;
-    //   console.log(rotationAngle);
-    // }
-    // else if (event.key === "ArrowLeft") {
-    //   rotationAngle -= 10;
-    //   image.style.transform = `rotate(${rotationAngle}deg)`;
-    //   console.log(rotationAngle);
-    // }
   });
 
- 
-
-
   let intervalId;
-  let isAccelerating = false; 
-  
+  let isAccelerating = false;
+  let isBrake = false;
+
   document.addEventListener("keydown", function (event) {
     if (event.key === "a" || event.key === "A") {
-      if (!isAccelerating) { 
-        isAccelerating = true; 
-        intervalId = setInterval(increaseSpeed, 1000);
-        let audio = new Audio('src/assets/audio/acceleration.mp3');
-        audio.play();
+      if (!isAccelerating) {
+        isAccelerating = true;
+        intervalId = setInterval(increaseSpeed, 500);
+        let startaudio = new Audio('src/assets/audio/acceleration.mp3');
+        startaudio.play();
+        breakIcon.style.border = "4px solid yellow";
+        accelerateIcon.style.border = "5px solid #BAC8D3";
       }
     }
-  
+
     if (event.key === "e" || event.key === "E") {
       stopEngine();
     }
+
+    if (event.key === "b" || event.key === "B") {
+      let brakeaudio = new Audio('src/assets/audio/car-brake-fx.wav');
+      brakeaudio.play();
+      isBrake=true;
+      accelerateIcon.style.border = "4px solid yellow";
+      brake();
+    }
   });
-  
+
   document.addEventListener("keyup", function (event) {
     if (event.key === "a" || event.key === "A") {
       clearInterval(intervalId);
-      isAccelerating = false; // Reset the flag when key is released
-      decreaseSpeed();
+      isAccelerating = false;
+      intervalId = setInterval(decreaseSpeed, 5000);
+      let startaudio = new Audio('src/assets/audio/acceleration.mp3');
+      startaudio.pause();
+      startaudio.currentTime = 0; // Reset audio to the beginning
+      breakIcon.style.border = "5px solid #BAC8D3";
+    }
+
+    if (event.key === "b" || event.key === "B") {
+      let brakeaudio = new Audio('src/assets/audio/car-brake-fx.wav');
+      brakeaudio.pause();
+      isBrake=false;
+      startaudio.currentTime = 0;
+    
     }
   });
-  
+
   function increaseSpeed() {
     let currentSpeed = parseInt(speed.textContent);
-    let newSpeed = currentSpeed + 1;
+    let newSpeed = currentSpeed + 2;
     if (newSpeed <= 280) {
       speed.textContent = newSpeed;
+      if (newSpeed >= 80) {
+        warnIcon.style.display = "block";
+        warnMsg.style.display = "block";
+      }
     }
   }
-  
+
   function decreaseSpeed() {
     let currentSpeed = parseInt(speed.textContent);
     let newSpeed = currentSpeed - 1;
@@ -338,25 +352,31 @@ let accelerateIcon = createElement("img", {
       speed.textContent = newSpeed;
     }
   }
-  
+
+
   function stopEngine() {
     clearInterval(intervalId);
-    isAccelerating = false; 
-    speed.textContent = 0; 
+    isAccelerating = false;
+    speed.textContent = 0;
   }
-  
+
+  function brake() {
+    clearInterval(intervalId);
+    isAccelerating = false;
+    speed.textContent = 0;
+  }
 
   let lastSKeyPressTime = 0;
-  const doublePressInterval = 40000; 
-  const audio = new Audio('src/assets/audio/car-start.wav');
-  
-  document.addEventListener('keyup', function(event) {
+  const doublePressInterval = 40000;
+  const audio = new Audio('src/assets/audio/start-engine.mp3');
+
+  document.addEventListener('keyup', function (event) {
     if (event.key.toUpperCase() === 'S') {
       const now = new Date().getTime();
-      
+
       if (now - lastSKeyPressTime <= doublePressInterval) {
         audio.pause();
-        audio.currentTime = 0; 
+        audio.currentTime = 0;
         goToNextScreen();
       } else {
         audio.play();
@@ -364,17 +384,17 @@ let accelerateIcon = createElement("img", {
       lastSKeyPressTime = now;
     }
   });
-  
+
   function goToNextScreen() {
-    let rootElement = document.getElementById("root"); 
+    let rootElement = document.getElementById("root");
     rootElement.innerHTML = '';
     rootElement.appendChild(runModeScreen);
     audio.pause();
-    audio.currentTime = 0; 
+    audio.currentTime = 0;
   }
-  
-  
-  
+
+
+
 
   let rootElement = document.getElementById("root");
   rootElement.appendChild(startModeScreen);

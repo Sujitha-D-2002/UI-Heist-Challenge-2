@@ -91,10 +91,12 @@ body {
   align-items: center;
 }
 .warn-img {
+  display:none;
   height: 20px;
   padding-right: 4px;
 }
 .warn-msg {
+  display: none;
   color: #e1a80c;
 }
 
