@@ -208,48 +208,52 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   let rotationAngleforbg = 0; 
-  const leftTurnAudio = new Audio('src/assets/audio/car-start.wav');
-  const rightTurnAudio = new Audio('src/assets/audio/car-start.wav');
-  
-  document.addEventListener("keydown", function(event) {
-      const element = document.getElementById('steering-image');
-      switch (event.keyCode) {
-          case 37: 
-              // document.documentElement.classList.toggle('bg-rotate-left');
-  
-              // // Move background to the left
-              // document.documentElement.style.backgroundPositionX = (parseInt(document.documentElement.style.backgroundPositionX || 0) - 10) + "px";
-              
-              // Rotate the steering image to the left
-              rotationAngleforbg += 10;
-              element.style.transform = `rotate(${rotationAngleforbg}deg)`;
-  
-              // Play left turn audio
-              leftTurnAudio.currentTime = 0;
-              leftTurnAudio.play(); 
-              break;
-          case 39: 
-              // document.documentElement.style.backgroundPositionX = (parseInt(document.documentElement.style.backgroundPositionX || 0) + 10) + "px";
-              
-              // Rotate the steering image to the right
-              rotationAngleforbg -= 10;
-              element.style.transform = `rotate(${rotationAngleforbg}deg)`;
-  
-              // Play right turn audio
-              rightTurnAudio.currentTime = 0; 
-              rightTurnAudio.play();
-              break;
-      }
-  });
-  
+  const leftTurnAudio = new Audio('src/assets/audio/car-moving.wav');
+  const rightTurnAudio = new Audio('src/assets/audio/car-moving.wav');
+  let isLeftTurnAudioPlaying = false;
+let isRightTurnAudioPlaying = false;
 
-document.addEventListener("keyup", function(event) {
-    if (event.keyCode === 37 || event.keyCode === 39) { 
-        // Pause left or right turn audio and reset its time
+document.addEventListener("keydown", function(event) {
+  const element = document.getElementById('steering-image');
+  switch (event.keyCode) {
+      case 37: // Left arrow key
+          rotationAngleforbg += 10;
+          element.style.transform = `rotate(${rotationAngleforbg}deg)`;
+
+          document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
+
+          if (!isLeftTurnAudioPlaying) {
+            leftTurnAudio.currentTime = 0;
+            leftTurnAudio.play(); 
+            isLeftTurnAudioPlaying = true;
+          }
+          break;
+      case 39: // Right arrow key
+          rotationAngleforbg -= 10;
+          element.style.transform = `rotate(${rotationAngleforbg}deg)`;
+
+          document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
+
+          if (!isRightTurnAudioPlaying) {
+            rightTurnAudio.currentTime = 0; 
+            rightTurnAudio.play();
+            isRightTurnAudioPlaying = true;
+          }
+          break;
+  }
+});
+
+
+
+  document.addEventListener("keyup", function(event) {
+    if (event.keyCode === 37) { // Left key up
         leftTurnAudio.pause();
         leftTurnAudio.currentTime = 0; 
+        isLeftTurnAudioPlaying = false;
+    } else if (event.keyCode === 39) { // Right key up
         rightTurnAudio.pause();
         rightTurnAudio.currentTime = 0;
+        isRightTurnAudioPlaying = false;
     }
 });
   
