@@ -105,6 +105,15 @@ export function createRunModeScreen() {
         textContent: "Fetching temperature...",
     });
 
+    let videoContainer = createElement("div", {
+        className: "video-container",
+    });
+    let videoIcon = document.createElement("video");
+    videoIcon.id = "vid";
+    videoIcon.muted = true;
+    videoIcon.autoplay = true;
+
+
     getTemp().then(temp => {
         currentTemp.textContent = temp[0] + "°C";
 
@@ -219,6 +228,7 @@ export function createRunModeScreen() {
     currentSpeed.appendChild(warnDiv);
     currentSpeed.appendChild(speed);
     currentSpeed.appendChild(speedMeasure);
+    videoContainer.appendChild(videoIcon);
 
     temp.appendChild(currentTemp);
     temp.appendChild(tempMsg);
@@ -237,6 +247,7 @@ export function createRunModeScreen() {
     runModeScreen.appendChild(leftContainer);
     runModeScreen.appendChild(cameraIcon);
     runModeScreen.appendChild(smokeImage);
+    runModeScreen.appendChild(videoContainer);
 
     // return runModeScreen;
 
@@ -251,8 +262,10 @@ export function createRunModeScreen() {
         switch (event.keyCode) {
             case 37: // Left arrow key
                 rotationAngleforbg += 10;
+                if (rotationAngleforbg > 180) {
+                    rotationAngleforbg = 180;
+                  }
                 element.style.transform = `rotate(${rotationAngleforbg}deg)`;
-
                 document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
 
                 if (!isLeftTurnAudioPlaying) {
@@ -264,7 +277,9 @@ export function createRunModeScreen() {
             case 39: // Right arrow key
                 rotationAngleforbg -= 10;
                 element.style.transform = `rotate(${rotationAngleforbg}deg)`;
-
+                if (rotationAngleforbg < -180) {
+                    rotationAngleforbg = -180;
+                  }
                 document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
 
                 if (!isRightTurnAudioPlaying) {
@@ -274,6 +289,26 @@ export function createRunModeScreen() {
                 }
                 break;
         }
+        if ((event.key == "C" || event.key == 'c') && isSecondPage) {
+            let videoElement = document.getElementById("vid");
+            videoElement.muted = true;
+
+            navigator.mediaDevices.getUserMedia({
+                video: true,
+                audio: true,
+            })
+                .then((stream) => {
+                    videoElement.srcObject = stream;
+                    videoElement.addEventListener("loadedmetadata", () => {
+                        videoElement.play();
+                    });
+                })
+                .catch(error => {
+                    console.error("Error accessing media devices:", error);
+                    alert("Error accessing camera: " + error.message);
+                });
+        }
+
     });
 
     document.addEventListener("keyup", function (event) {
@@ -307,7 +342,7 @@ export function createRunModeScreen() {
                 speedIncIcon.style.border = "5px solid #BAC8D3";
                 break;
         }
-    };
+    }
 
     document.onkeyup = function (e) {
         if (e.keyCode === 37 || e.keyCode === 39) {
@@ -468,7 +503,7 @@ export function createRunModeScreen() {
             let hornAudio = new Audio('src/assets/audio/car-horn.mp3');
             hornAudio.pause();
             speakerIcon.src = "src/assets/icons/sound.png";
-            speakerIcon.style.border =  "5px solid #BAC8D3";
+            speakerIcon.style.border = "5px solid #BAC8D3";
         }
 
         if ((event.key === "e" || event.key === "E") && isSecondPage) {
