@@ -291,8 +291,9 @@ body {
 }
 
 .camera-icon{
-  margin-top: 245px;
-  margin-left: 320px;
+  position: fixed;
+  bottom: 74px;
+  left: 45%;
 }
 
 .video-container{
@@ -316,24 +317,18 @@ body {
 }
 
 .music-icon{
-  width: 80px;
+  width: 72px;
   position: absolute;
   top: 48%;
   left: 47%;
+  padding-top: 8px;
+
 }
 
-.music-speaker-one-icon{
-  width: 42px;
-  position: absolute;
-  top: 36%;
-  right: 29%;
-}
+.speaker-audio{ 
+  position: fixed;
+   bottom: 74px;
+    left: 50%; }
 
-.music-speaker-second-icon{
-  width: 42px;
-  position: absolute;
-  top: 37%;
-  left: 29%;
-}
 
 
