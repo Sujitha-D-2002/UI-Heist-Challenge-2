@@ -472,58 +472,32 @@ export function createRunModeScreen() {
         1: 'src/assets/audio/kamalsong.mp3',
         2: 'src/assets/audio/DhanushBgm.mp3',
         3: 'src/assets/audio/vijayBgm.mp3',
-        4: 'src/assets/audio/DhanushBgm.mp3'
     };
     
-    let currentAudio = null;
-
+    let currentAudio = null; 
+    
     document.addEventListener('keydown', function(event) {
         const key = event.key;
         const audioSrc = audioFiles[key];
-    
-        if (key === 'M' || key==='m') {
-            speakerAudioIcon.style.border = "5px solid #BAC8D3";
-            musicIcon.src = "src/assets/icons/music-note.png"; 
-            musicIcon.style.top="45%";
-            stopAndResetAudio();
-            return; 
-        }
-    
         if (audioSrc) {
-            playSelectedAudio(audioSrc);
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            
+            currentAudio = new Audio(audioSrc);
+            currentAudio.play().catch(error => console.error("Error playing the audio file:", error));
+            
+            setTimeout(() => {
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio.currentTime = 0;
+                }
+            }, 20000);
+        } else {
+            console.log("No audio file for this key.");
         }
     });
-    
-    function playSelectedAudio(audioSrc) {
-        if (currentAudio) {
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-        }
-    
-        currentAudio = new Audio(audioSrc);
-        currentAudio.play();
-        speakerAudioIcon.style.border = "5px solid yellow";
-        musicIcon.src = "src/assets/images/animate-music.gif";
-        musicIcon.style.top="46%";
-    
-        setTimeout(() => {
-            stopAndResetAudio();
-        }, 20000); 
-    }
-    
-    function stopAndResetAudio() {
-      
-        if (currentAudio) {
-            speakerAudioIcon.style.border = "5px solid #BAC8D3";
-            musicIcon.src = "src/assets/icons/music-note.png"; 
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-            currentAudio = null;
-        }
-        
-    }
-    
-    
     
     
 
