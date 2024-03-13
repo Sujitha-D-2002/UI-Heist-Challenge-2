@@ -106,9 +106,6 @@ export function createRunModeScreen() {
         textContent: "Fetching temperature...",
     });
 
-    let videoContainer = createElement("div", {
-        className: "video-container",
-    });
     let videoIcon = document.createElement("video");
     videoIcon.id = "vid";
     videoIcon.muted = true;
@@ -179,18 +176,17 @@ export function createRunModeScreen() {
         className: "progress",
     });
 
-    // let mirrorImage=createElement("img", {
-    //     className: "mirror-img",
-    //     src: 'src/assets/images/mirror.png',
-    //     alt: "img"
-    // });
-
     let hanganimateImage = createElement("img", {
         className: "hang-animate-img",
         src: 'src/assets/images/monkey-fixed.png',
         alt: "img"
     });
 
+    let handImg = createElement("img", {
+        className: "hand-img",
+        src: 'src/assets/images/hand-2.png',
+        alt: "img"
+    });
 
 
     progressDiv.appendChild(progress);
@@ -276,6 +272,7 @@ export function createRunModeScreen() {
     runModeScreen.appendChild(musicSpeaker1Icon);
     runModeScreen.appendChild(musicSpeaker2Icon);
 
+    runModeScreen.appendChild(handImg);
 
     // return runModeScreen;
 
