@@ -20,8 +20,6 @@ export function createStartModeScreen() {
         alt: "img"
     });
 
-
-
     let hangImage = createElement("img", {
         className: "hang-img",
         src: 'src/assets/images/monkey-fixed.png',
@@ -42,6 +40,8 @@ export function createStartModeScreen() {
     screenDiv.appendChild(startIcon);
     screenDiv.appendChild(startMsg);
     screenDiv.appendChild(caption);
+
+    
 
     startModeScreen.appendChild(hangDiv);
     startModeScreen.appendChild(screenDiv);
