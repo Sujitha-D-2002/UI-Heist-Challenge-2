@@ -232,6 +232,20 @@ export function createRunModeScreen() {
         alt: "img"
     });
 
+    let musicIcon=createElement("img",{
+        className: "music-icon",
+        src:'src/assets/icons/player.png'
+    })
+
+    let musicSpeaker1Icon=createElement("img",{
+        className: "music-speaker-one-icon",
+        src:'src/assets/icons/speaker.png'
+    })
+
+    let musicSpeaker2Icon=createElement("img",{
+        className: "music-speaker-second-icon",
+        src:'src/assets/images/speaker.png'
+    })
     warnDiv.appendChild(warnIcon);
     warnDiv.appendChild(warnMsg);
     currentSpeed.appendChild(warnDiv);
@@ -258,6 +272,10 @@ export function createRunModeScreen() {
     runModeScreen.appendChild(cameraIcon);
     runModeScreen.appendChild(smokeImage);
     runModeScreen.appendChild(videoIcon);
+    runModeScreen.appendChild(musicIcon);
+    runModeScreen.appendChild(musicSpeaker1Icon);
+    runModeScreen.appendChild(musicSpeaker2Icon);
+
 
     // return runModeScreen;
 
@@ -303,6 +321,8 @@ export function createRunModeScreen() {
                     break;
             }
         }
+
+        
 
     });
 
@@ -451,6 +471,38 @@ export function createRunModeScreen() {
         }
     });
 
+    const audioFiles = {
+        1: 'src/assets/audio/kamalsong.mp3',
+        2: 'src/assets/audio/DhanushBgm.mp3',
+        3: 'src/assets/audio/vijayBgm.mp3',
+    };
+    
+    let currentAudio = null; 
+    
+    document.addEventListener('keydown', function(event) {
+        const key = event.key;
+        const audioSrc = audioFiles[key];
+        if (audioSrc) {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
+            
+            currentAudio = new Audio(audioSrc);
+            currentAudio.play().catch(error => console.error("Error playing the audio file:", error));
+            
+            setTimeout(() => {
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio.currentTime = 0;
+                }
+            }, 20000);
+        } else {
+            console.log("No audio file for this key.");
+        }
+    });
+    
+    
 
     let intervalId;
     let isAccelerating = false;
