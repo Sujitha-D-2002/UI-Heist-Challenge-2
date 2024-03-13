@@ -106,9 +106,6 @@ export function createRunModeScreen() {
         textContent: "Fetching temperature...",
     });
 
-    let videoContainer = createElement("div", {
-        className: "video-container",
-    });
     let videoIcon = document.createElement("video");
     videoIcon.id = "vid";
     videoIcon.muted = true;
