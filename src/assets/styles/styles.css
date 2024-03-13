@@ -314,3 +314,26 @@ body {
 #but{
   cursor: pointer;
 }
+
+.music-icon{
+  width: 80px;
+  position: absolute;
+  top: 48%;
+  left: 47%;
+}
+
+.music-speaker-one-icon{
+  width: 42px;
+  position: absolute;
+  top: 36%;
+  right: 29%;
+}
+
+.music-speaker-second-icon{
+  width: 42px;
+  position: absolute;
+  top: 37%;
+  left: 29%;
+}
+
+
