@@ -271,84 +271,86 @@ export function createRunModeScreen() {
 
     document.addEventListener("keydown", function (event) {
         const element = document.getElementById('steering-image');
-        switch (event.keyCode) {
-            case 37: // Left arrow key
-                rotationAngleforbg += 10;
-                if (rotationAngleforbg > 180) {
-                    rotationAngleforbg = 180;
-                }
-                element.style.transform = `rotate(${rotationAngleforbg}deg)`;
-                document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
+        if (parseInt(speed.textContent) > 0) {
+            switch (event.keyCode) {
+                case 37: // Left arrow key
+                    rotationAngleforbg += 10;
+                    if (rotationAngleforbg > 180) {
+                        rotationAngleforbg = 180;
+                    }
+                    element.style.transform = `rotate(${rotationAngleforbg}deg)`;
+                    document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
 
-                if (!isLeftTurnAudioPlaying) {
-                    leftTurnAudio.currentTime = 0;
-                    leftTurnAudio.play();
-                    isLeftTurnAudioPlaying = true;
-                }
-                break;
-            case 39: // Right arrow key
-                rotationAngleforbg -= 10;
-                element.style.transform = `rotate(${rotationAngleforbg}deg)`;
-                if (rotationAngleforbg < -180) {
-                    rotationAngleforbg = -180;
-                }
-                document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
+                    if (!isLeftTurnAudioPlaying) {
+                        leftTurnAudio.currentTime = 0;
+                        leftTurnAudio.play();
+                        isLeftTurnAudioPlaying = true;
+                    }
+                    break;
+                case 39: // Right arrow key
+                    rotationAngleforbg -= 10;
+                    element.style.transform = `rotate(${rotationAngleforbg}deg)`;
+                    if (rotationAngleforbg < -180) {
+                        rotationAngleforbg = -180;
+                    }
+                    document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
 
-                if (!isRightTurnAudioPlaying) {
-                    rightTurnAudio.currentTime = 0;
-                    rightTurnAudio.play();
-                    isRightTurnAudioPlaying = true;
-                }
-                break;
+                    if (!isRightTurnAudioPlaying) {
+                        rightTurnAudio.currentTime = 0;
+                        rightTurnAudio.play();
+                        isRightTurnAudioPlaying = true;
+                    }
+                    break;
+            }
         }
 
     });
 
     let isVideoMuted = true;
-  let currentStream = null;
+    let currentStream = null;
 
-  document.addEventListener("keydown", function (event) {
-    if ((event.key == "C" || event.key == "c") && isSecondPage) {
-      let videoElement = document.getElementById("vid");
-        videoElement.style.display="block";
-      if (isVideoMuted) {
-        if (currentStream && videoElement.srcObject === currentStream) {
-          videoElement.muted = false;
-          isVideoMuted = false;
-        } else {
-          navigator.mediaDevices
-            .getUserMedia({
-              video: true,
-              audio: true,
-            })
-            .then((stream) => {
-              currentStream = stream;
-              videoElement.srcObject = stream;
-              videoElement.muted = false;
-              videoElement.addEventListener("loadedmetadata", () => {
-                videoElement.play();
-                cameraIcon.style.border="5px solid yellow";
-              });
-              isVideoMuted = false;
-            })
-            .catch((error) => {
-              console.error("Error accessing media devices:", error);
-              alert("Error accessing camera: " + error.message);
-            });
+    document.addEventListener("keydown", function (event) {
+        if ((event.key == "C" || event.key == "c") && isSecondPage) {
+            let videoElement = document.getElementById("vid");
+            videoElement.style.display = "block";
+            if (isVideoMuted) {
+                if (currentStream && videoElement.srcObject === currentStream) {
+                    videoElement.muted = false;
+                    isVideoMuted = false;
+                } else {
+                    navigator.mediaDevices
+                        .getUserMedia({
+                            video: true,
+                            audio: true,
+                        })
+                        .then((stream) => {
+                            currentStream = stream;
+                            videoElement.srcObject = stream;
+                            videoElement.muted = false;
+                            videoElement.addEventListener("loadedmetadata", () => {
+                                videoElement.play();
+                                cameraIcon.style.border = "5px solid yellow";
+                            });
+                            isVideoMuted = false;
+                        })
+                        .catch((error) => {
+                            console.error("Error accessing media devices:", error);
+                            alert("Error accessing camera: " + error.message);
+                        });
+                }
+            } else {
+                videoElement.muted = true;
+                isVideoMuted = true;
+                if (currentStream) {
+                    cameraIcon.style.border = "5px solid #BAC8D3";
+                    videoElement.style.display = "none";
+                    currentStream.getTracks().forEach((track) => track.stop());
+                    videoElement.srcObject = null;
+                    currentStream = null;
+                }
+            }
         }
-      } else {
-        videoElement.muted = true;
-        isVideoMuted = true;
-        if (currentStream) {
-            cameraIcon.style.border="5px solid #BAC8D3";
-            videoElement.style.display="none";
-          currentStream.getTracks().forEach((track) => track.stop());
-          videoElement.srcObject = null;
-          currentStream = null;
-        }
-      }
-    }
-  });
+    });
 
     document.addEventListener("keyup", function (event) {
         if (event.keyCode === 37) { // Left key up
@@ -367,19 +369,21 @@ export function createRunModeScreen() {
 
     document.onkeydown = function (e) {
         const element = document.getElementById('steering-image');
-        switch (e.keyCode) {
-            case 37:
-                rotationAngle += 10;
-                element.style.transform = `rotate(${rotationAngle}deg)`;
-                speedIncIcon.style.border = "5px solid yellow";
-                speedDecIcon.style.border = "5px solid #BAC8D3";
-                break;
-            case 39:
-                rotationAngle -= 10;
-                element.style.transform = `rotate(${rotationAngle}deg)`;
-                speedDecIcon.style.border = "5px solid yellow";
-                speedIncIcon.style.border = "5px solid #BAC8D3";
-                break;
+        if (parseInt(speed.textContent) > 0) {
+            switch (e.keyCode) {
+                case 37:
+                    rotationAngle += 10;
+                    element.style.transform = `rotate(${rotationAngle}deg)`;
+                    speedIncIcon.style.border = "5px solid yellow";
+                    speedDecIcon.style.border = "5px solid #BAC8D3";
+                    break;
+                case 39:
+                    rotationAngle -= 10;
+                    element.style.transform = `rotate(${rotationAngle}deg)`;
+                    speedDecIcon.style.border = "5px solid yellow";
+                    speedIncIcon.style.border = "5px solid #BAC8D3";
+                    break;
+            }
         }
     }
 
@@ -477,21 +481,22 @@ export function createRunModeScreen() {
             console.log("restart");
             startEngine();
         }
-
-        if ((event.key === "b" || event.key === "B") && isSecondPage) {
-            warnIcon.style.display = "none";
-            warnMsg.style.display = "none";
-            hanganimateImage.src = "src/assets/images/monkey-fixed.png";
-            let brakeaudio = new Audio('src/assets/audio/car-brake-fx.wav');
-            let smokeElements = document.getElementsByClassName("smoke");
-            if (smokeElements.length > 0) {
-                smokeElements[0].style.display = "block";
+        if (parseInt(speed.textContent) > 0) {
+            if ((event.key === "b" || event.key === "B") && isSecondPage) {
+                warnIcon.style.display = "none";
+                warnMsg.style.display = "none";
+                hanganimateImage.src = "src/assets/images/monkey-fixed.png";
+                let brakeaudio = new Audio('src/assets/audio/car-brake-fx.wav');
+                let smokeElements = document.getElementsByClassName("smoke");
+                if (smokeElements.length > 0) {
+                    smokeElements[0].style.display = "block";
+                }
+                document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/bg-fixed.jpeg")';
+                brakeaudio.play();
+                isBrake = true;
+                accelerateIcon.style.border = "4px solid yellow";
+                brake();
             }
-            document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/bg-fixed.jpeg")';
-            brakeaudio.play();
-            isBrake = true;
-            accelerateIcon.style.border = "4px solid yellow";
-            brake();
         }
 
         if ((event.key == 'h' || event.key == 'H') && isSecondPage) {
@@ -566,7 +571,6 @@ export function createRunModeScreen() {
 
     function stopEngine() {
         accelerateIcon.style.border = "5px solid #BAC8D3";
-        engineOffIcon.src = "src/assets/icons/power-button-on.png";
         document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/bg-fixed.jpeg")';
         hanganimateImage.src = "src/assets/images/monkey-fixed.png";
         warnIcon.style.display = "none";
@@ -583,9 +587,11 @@ export function createRunModeScreen() {
         clearInterval(intervalId);
         isAccelerating = false;
         speed.textContent = 0;
+        isSecondPage = false;
     }
 
     function startEngine() {
+        isSecondPage = true;
         startModeScreen.style.display = "none";
         runModeScreen.style.display = "block";
 

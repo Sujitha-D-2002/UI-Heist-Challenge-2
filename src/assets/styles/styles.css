@@ -29,7 +29,7 @@ body {
   font-style: normal;
 }
 .smoke{
-  position: absolute;
+  position: fixed;
   bottom: 550px;
   right:30%;
   width: 700px;
@@ -44,7 +44,11 @@ body {
 .run-mode-container-1 {
   display: flex;
   justify-content: space-between;
-  margin-top: 62%;
+  align-items: center;
+  position: fixed;
+  top: 46%;
+  width: 40%; 
+  transform: translateY(-50%); 
 }
 .current-time {
   font-size: 16px;
@@ -75,7 +79,11 @@ body {
 .run-mode-container-2 {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  align-items: center;
+  position: fixed;
+  top: 56%;
+  width: 40%; 
+  transform: translateY(-50%); 
 }
 .current-disel {
   display: flex;
@@ -207,7 +215,7 @@ body {
 }
 
 .hang-img{
-  position: absolute;
+  position: fixed;
   top: 27%;
   left: 40%;
   display: flex;
@@ -218,14 +226,14 @@ body {
 
 .mirror-img {
   width: 450px;
-  position: absolute;
+  position: fixed;
   top: 5%;
   left: 50%;
   margin-left: -225px;
 }
 
 .hang-animate-img{
-  position: absolute;
+  position: fixed;
   top: 27%;
   left: 40%;
   display: flex;
@@ -291,8 +299,9 @@ body {
 }
 
 .camera-icon{
-  margin-top: 245px;
-  margin-left: 320px;
+  position: fixed;
+  bottom: 74px;
+  left: 48%;
 }
 
 .video-container{
