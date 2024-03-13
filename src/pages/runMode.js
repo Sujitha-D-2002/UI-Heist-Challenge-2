@@ -236,7 +236,7 @@ export function createRunModeScreen() {
     currentSpeed.appendChild(warnDiv);
     currentSpeed.appendChild(speed);
     currentSpeed.appendChild(speedMeasure);
-    videoContainer.appendChild(videoIcon);
+    // videoContainer.appendChild(videoIcon);
 
     temp.appendChild(currentTemp);
     temp.appendChild(tempMsg);
@@ -256,7 +256,7 @@ export function createRunModeScreen() {
     runModeScreen.appendChild(leftContainer);
     runModeScreen.appendChild(cameraIcon);
     runModeScreen.appendChild(smokeImage);
-    runModeScreen.appendChild(videoContainer);
+    runModeScreen.appendChild(videoIcon);
 
     // return runModeScreen;
 
@@ -298,28 +298,54 @@ export function createRunModeScreen() {
                 }
                 break;
         }
-        if ((event.key == "C" || event.key == 'c') && isSecondPage) {
-            let videoElement = document.getElementById("vid");
-            videoElement.muted = true;
-            videoElement.style.display="block";
-
-            navigator.mediaDevices.getUserMedia({
-                video: true,
-                audio: true,
-            })
-                .then((stream) => {
-                    videoElement.srcObject = stream;
-                    videoElement.addEventListener("loadedmetadata", () => {
-                        videoElement.play();
-                    });
-                })
-                .catch(error => {
-                    console.error("Error accessing media devices:", error);
-                    alert("Error accessing camera: " + error.message);
-                });
-        }
 
     });
+
+    let isVideoMuted = true;
+  let currentStream = null;
+
+  document.addEventListener("keydown", function (event) {
+    if ((event.key == "C" || event.key == "c") && isSecondPage) {
+      let videoElement = document.getElementById("vid");
+        videoElement.style.display="block";
+      if (isVideoMuted) {
+        if (currentStream && videoElement.srcObject === currentStream) {
+          videoElement.muted = false;
+          isVideoMuted = false;
+        } else {
+          navigator.mediaDevices
+            .getUserMedia({
+              video: true,
+              audio: true,
+            })
+            .then((stream) => {
+              currentStream = stream;
+              videoElement.srcObject = stream;
+              videoElement.muted = false;
+              videoElement.addEventListener("loadedmetadata", () => {
+                videoElement.play();
+                cameraIcon.style.border="5px solid yellow";
+              });
+              isVideoMuted = false;
+            })
+            .catch((error) => {
+              console.error("Error accessing media devices:", error);
+              alert("Error accessing camera: " + error.message);
+            });
+        }
+      } else {
+        videoElement.muted = true;
+        isVideoMuted = true;
+        if (currentStream) {
+            cameraIcon.style.border="5px solid #BAC8D3";
+            videoElement.style.display="none";
+          currentStream.getTracks().forEach((track) => track.stop());
+          videoElement.srcObject = null;
+          currentStream = null;
+        }
+      }
+    }
+  });
 
     document.addEventListener("keyup", function (event) {
         if (event.keyCode === 37) { // Left key up
