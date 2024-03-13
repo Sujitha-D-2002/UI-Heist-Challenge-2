@@ -28,6 +28,25 @@ body {
   font-family: "Source Sans 3", sans-serif;
   font-style: normal;
 }
+
+.person-img{
+  position: fixed;
+  bottom: 1%;
+  width: 250px;
+  left: 20%;
+}
+.driver-img{
+  position: fixed;
+  bottom: 1%;
+  width: 643px;
+  right: 10%;
+}
+.hand-img{
+  position: fixed;
+  bottom: 33%;
+  width: 256px;
+  right: 26.5%;
+}
 .smoke{
   position: fixed;
   bottom: 550px;
