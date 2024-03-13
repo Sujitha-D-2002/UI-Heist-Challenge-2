@@ -13,6 +13,8 @@ UI-Heist Challenge
 10. Petrol icon color change when the liters count is less than 15
 11. Intimation for the USER when  the speed limit is exceeded above 80KM/hr
 12. Welcoming message for the USER along with the timing
+13. PRESS M to stop the MUSIC.
+    
 
 
 
