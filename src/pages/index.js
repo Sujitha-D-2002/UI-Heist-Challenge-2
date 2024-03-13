@@ -2,6 +2,7 @@ import { createStartModeScreen } from "./startMode.js";
 import { createRunModeScreen } from "./runMode.js";
 import { createElement } from "../utils/htmlUtils.js";
 
+
 document.addEventListener("DOMContentLoaded", function () {
   let lastSKeyPressTime = 0;
   const doublePressInterval = 40000;

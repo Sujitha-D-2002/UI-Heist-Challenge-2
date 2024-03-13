@@ -1,6 +1,7 @@
 import { createElement } from "../utils/htmlUtils.js";
 import { APP_CONSTANTS } from "../constants/appConstants.js";
 import { getCurrentTime, getGreetings, getTemp } from "../utils/functionUtils.js";
+import { createStartModeScreen } from "./startMode.js";
 
 export function createRunModeScreen() {
     let rightContainer = createElement("div", {
@@ -265,6 +266,8 @@ export function createRunModeScreen() {
     const rightTurnAudio = new Audio('src/assets/audio/car-moving.wav');
     let isLeftTurnAudioPlaying = false;
     let isRightTurnAudioPlaying = false;
+    let isEngineOff = false;
+
 
     document.addEventListener("keydown", function (event) {
         const element = document.getElementById('steering-image');
@@ -273,7 +276,7 @@ export function createRunModeScreen() {
                 rotationAngleforbg += 10;
                 if (rotationAngleforbg > 180) {
                     rotationAngleforbg = 180;
-                  }
+                }
                 element.style.transform = `rotate(${rotationAngleforbg}deg)`;
                 document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
 
@@ -288,7 +291,7 @@ export function createRunModeScreen() {
                 element.style.transform = `rotate(${rotationAngleforbg}deg)`;
                 if (rotationAngleforbg < -180) {
                     rotationAngleforbg = -180;
-                  }
+                }
                 document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
 
                 if (!isRightTurnAudioPlaying) {
@@ -462,29 +465,17 @@ export function createRunModeScreen() {
                 startaudio.play();
                 breakIcon.style.border = "4px solid yellow";
                 accelerateIcon.style.border = "5px solid #BAC8D3";
-                if (!isIntervalRunning) {
-                    quantity.textContent = lastValue;
-                    startInterval(); // Resume the interval
-                    isIntervalRunning = true;
-
-                }
             }
         }
 
-        if (event.key === "e" || event.key === "E") {
-            accelerateIcon.style.border = "5px solid #BAC8D3";
-            engineOffIcon.src = "src/assets/icons/power-button-on.png";
-            document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/bg-fixed.jpeg")';
-            hanganimateImage.src = "src/assets/images/monkey-fixed.png";
-            warnIcon.style.display = "none";
-            warnMsg.style.display = "none";
-            if (isIntervalRunning) {
-                lastValue = quantity.textContent;
-                clearInterval(interval); // Pause the interval
-                isIntervalRunning = false;
-                quantity.textContent = lastValue;
-            }
+        if (event.key === "e" || event.key === "E" && isSecondPage) {
+            isEngineOff = true;
             stopEngine();
+        }
+
+        if (event.key === "s" || event.key === "S" && isSecondPage && isEngineOff) {
+            console.log("restart");
+            startEngine();
         }
 
         if ((event.key === "b" || event.key === "B") && isSecondPage) {
@@ -570,11 +561,42 @@ export function createRunModeScreen() {
             warnMsg.style.display = "none";
         }
     }
+    let rootElement = document.getElementById("root");
+    const startModeScreen = createStartModeScreen();
 
     function stopEngine() {
+        accelerateIcon.style.border = "5px solid #BAC8D3";
+        engineOffIcon.src = "src/assets/icons/power-button-on.png";
+        document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/bg-fixed.jpeg")';
+        hanganimateImage.src = "src/assets/images/monkey-fixed.png";
+        warnIcon.style.display = "none";
+        warnMsg.style.display = "none";
+        runModeScreen.style.display = "none";
+
+        rootElement.appendChild(startModeScreen);
+        if (isIntervalRunning) {
+            lastValue = quantity.textContent;
+            clearInterval(interval); // Pause the interval
+            isIntervalRunning = false;
+            quantity.textContent = lastValue;
+        }
         clearInterval(intervalId);
         isAccelerating = false;
         speed.textContent = 0;
+    }
+
+    function startEngine() {
+        startModeScreen.style.display = "none";
+        runModeScreen.style.display = "block";
+
+        rootElement.appendChild(runModeScreen);
+        isAccelerating = true;
+        if (!isIntervalRunning) {
+            quantity.textContent = lastValue;
+            startInterval(); // Resume the interval
+            isIntervalRunning = true;
+
+        }
     }
 
     function brake() {
