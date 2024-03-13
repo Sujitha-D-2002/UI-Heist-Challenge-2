@@ -243,8 +243,13 @@ export function createRunModeScreen() {
         const element = document.getElementById('steering-image');
         switch (event.keyCode) {
             case 37: // Left arrow key
+                console.log('Before:', rotationAngleforbg);
                 rotationAngleforbg += 10;
+                if(rotationAngleforbg>180){
+                    rotationAngleforbg=180;
+                }
                 element.style.transform = `rotate(${rotationAngleforbg}deg)`;
+                console.log('After:', rotationAngleforbg);
 
                 document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
 
@@ -255,7 +260,11 @@ export function createRunModeScreen() {
                 }
                 break;
             case 39: // Right arrow key
+
                 rotationAngleforbg -= 10;
+                if (rotationAngleforbg < -180) {
+                    rotationAngleforbg = -180;
+                }
                 element.style.transform = `rotate(${rotationAngleforbg}deg)`;
 
                 document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/background.gif")';
@@ -268,6 +277,7 @@ export function createRunModeScreen() {
                 break;
         }
     });
+
 
     document.addEventListener("keyup", function (event) {
         if (event.keyCode === 37) { // Left key up
@@ -446,6 +456,8 @@ export function createRunModeScreen() {
         if ((event.key === "b" || event.key === "B") && isSecondPage) {
             let brakeaudio = new Audio('src/assets/audio/car-brake-fx.wav');
             brakeaudio.pause();
+            accelerateIcon.style.border = "5px solid #BAC8D3";
+
             isBrake = false;
             // startaudio.currentTime = 0;
         }
