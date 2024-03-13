@@ -288,8 +288,8 @@ body {
   height: 204px;
   object-fit: cover;
   position: absolute;
-  top: 4%;
-  margin-left: 103px;
+  top: 5%;
+  left: 37%;
   border-radius: 50% 50% 60% 60% / 30% 30% 70% 70%;
 }
 
