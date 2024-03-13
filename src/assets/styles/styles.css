@@ -327,10 +327,9 @@ body {
 .music-icon{
   width: 72px;
   position: absolute;
-  top: 48%;
+  top: 45%;
   left: 47%;
   padding-top: 8px;
-
 }
 
 .speaker-audio{ 
@@ -339,4 +338,21 @@ body {
     left: 50%; }
 
 
-
+.person-img{
+  position: fixed;
+  bottom: 1%;
+  width: 250px;
+  left: 20%;
+}
+.driver-img{
+  position: fixed;
+  bottom: 1%;
+  width: 643px;
+  right: 10%;
+}
+.hand-img{
+  position: fixed;
+  bottom: 33%;
+  width: 256px;
+  right: 26.5%;
+}

@@ -179,15 +179,15 @@ export function createRunModeScreen() {
         className: "progress",
     });
 
-    // let mirrorImage=createElement("img", {
-    //     className: "mirror-img",
-    //     src: 'src/assets/images/mirror.png',
-    //     alt: "img"
-    // });
-
     let hanganimateImage = createElement("img", {
         className: "hang-animate-img",
         src: 'src/assets/images/monkey-fixed.png',
+        alt: "img"
+    });
+
+    let handImg = createElement("img", {
+        className: "hand-img",
+        src: 'src/assets/images/hand-2.png',
         alt: "img"
     });
 
@@ -272,6 +272,7 @@ export function createRunModeScreen() {
     runModeScreen.appendChild(videoIcon);
     runModeScreen.appendChild(musicIcon);
     runModeScreen.appendChild(speakerAudioIcon);
+    runModeScreen.appendChild(handImg);
     
 
     // return runModeScreen;
