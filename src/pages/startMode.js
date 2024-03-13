@@ -6,10 +6,6 @@ export function createStartModeScreen() {
         className: "start-mode-screen"
     });
 
-    let mirrorDiv=createElement("div", {
-        className: "mirror-div",
-    });
-
     let hangDiv=createElement("div", {
         className: "hang-div",
     });
@@ -24,11 +20,7 @@ export function createStartModeScreen() {
         alt: "img"
     });
 
-    let mirrorImage=createElement("img", {
-        className: "mirror-img",
-        src: 'src/assets/images/mirror.png',
-        alt: "img"
-    });
+
 
     let hangImage = createElement("img", {
         className: "hang-img",
@@ -45,13 +37,12 @@ export function createStartModeScreen() {
         className: "caption",
         textContent: APP_CONSTANTS.CAPTION,
     });
-    mirrorDiv.appendChild(mirrorImage);
+    
     hangDiv.appendChild(hangImage);
     screenDiv.appendChild(startIcon);
     screenDiv.appendChild(startMsg);
     screenDiv.appendChild(caption);
 
-    startModeScreen.appendChild(mirrorDiv);
     startModeScreen.appendChild(hangDiv);
     startModeScreen.appendChild(screenDiv);
 

@@ -178,11 +178,19 @@ export function createRunModeScreen() {
         className: "progress",
     });
 
+    // let mirrorImage=createElement("img", {
+    //     className: "mirror-img",
+    //     src: 'src/assets/images/mirror.png',
+    //     alt: "img"
+    // });
+
     let hanganimateImage = createElement("img", {
         className: "hang-animate-img",
         src: 'src/assets/images/monkey-fixed.png',
         alt: "img"
     });
+
+
 
     progressDiv.appendChild(progress);
     currentDisel.appendChild(quantity);
@@ -240,6 +248,7 @@ export function createRunModeScreen() {
     runModeContain.appendChild(currentDisel);
     runModeContain.appendChild(currentSpeed);
     runModeContain.appendChild(steering);
+    // runModeScreen.appendChild(mirrorImage);
     runModeScreen.appendChild(hanganimateImage);
     runModeScreen.appendChild(runModeContainer);
     runModeScreen.appendChild(runModeContain);
@@ -292,6 +301,7 @@ export function createRunModeScreen() {
         if ((event.key == "C" || event.key == 'c') && isSecondPage) {
             let videoElement = document.getElementById("vid");
             videoElement.muted = true;
+            videoElement.style.display="block";
 
             navigator.mediaDevices.getUserMedia({
                 video: true,

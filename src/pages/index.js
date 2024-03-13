@@ -1,5 +1,7 @@
 import { createStartModeScreen } from "./startMode.js";
 import { createRunModeScreen } from "./runMode.js";
+import { createElement } from "../utils/htmlUtils.js";
+
 document.addEventListener("DOMContentLoaded", function () {
   let lastSKeyPressTime = 0;
   const doublePressInterval = 40000;
@@ -7,7 +9,14 @@ document.addEventListener("DOMContentLoaded", function () {
   let isFirstPage = true;
   let isSecondPage = false;
 
+  let mirrorImage=createElement("img", {
+    className: "mirror-img",
+    src: 'src/assets/images/mirror-1.png',
+    alt: "img"
+});
 
+
+  document.getElementById("root").appendChild(mirrorImage);
   document.addEventListener('keyup', function (event) {
     if (event.key.toUpperCase() === 'S' && isFirstPage) {
       const now = new Date().getTime();
@@ -27,8 +36,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function goToNextScreen() {
+
     let rootElement = document.getElementById("root");
     rootElement.innerHTML = '';
+    document.getElementById("root").appendChild(mirrorImage);
     const runModeScreen = createRunModeScreen();
     rootElement.appendChild(runModeScreen);
     audio.pause();
@@ -38,4 +49,5 @@ document.addEventListener("DOMContentLoaded", function () {
   let rootElement = document.getElementById("root");
   const startModeScreen = createStartModeScreen();
   rootElement.appendChild(startModeScreen);
+  
 });
