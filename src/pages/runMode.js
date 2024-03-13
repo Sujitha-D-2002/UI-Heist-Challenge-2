@@ -234,16 +234,18 @@ export function createRunModeScreen() {
 
     let musicIcon=createElement("img",{
         className: "music-icon",
-        src:'src/assets/icons/music-note.png'
+        src:'src/assets/icons/player.png'
     })
 
-    let speakerAudioIcon=createElement('img',{
-        className: "icon speaker-audio",
-        src: 'src/assets/images/speaker-high1.png',
-        alt: "img"
+    let musicSpeaker1Icon=createElement("img",{
+        className: "music-speaker-one-icon",
+        src:'src/assets/icons/speaker.png'
     })
 
-   
+    let musicSpeaker2Icon=createElement("img",{
+        className: "music-speaker-second-icon",
+        src:'src/assets/images/speaker.png'
+    })
     warnDiv.appendChild(warnIcon);
     warnDiv.appendChild(warnMsg);
     currentSpeed.appendChild(warnDiv);
@@ -271,8 +273,9 @@ export function createRunModeScreen() {
     runModeScreen.appendChild(smokeImage);
     runModeScreen.appendChild(videoIcon);
     runModeScreen.appendChild(musicIcon);
-    runModeScreen.appendChild(speakerAudioIcon);
-    
+    runModeScreen.appendChild(musicSpeaker1Icon);
+    runModeScreen.appendChild(musicSpeaker2Icon);
+
 
     // return runModeScreen;
 
@@ -470,59 +473,34 @@ export function createRunModeScreen() {
 
     const audioFiles = {
         1: 'src/assets/audio/kamalsong.mp3',
-        2: 'src/assets/audio/kanmani.mp3',
+        2: 'src/assets/audio/DhanushBgm.mp3',
         3: 'src/assets/audio/vijayBgm.mp3',
     };
     
-    let currentAudio = null;
-    
-    function updateMusicIconForStop() {
-        musicIcon.src = "src/assets/icons/music-note.png"; 
-    }
+    let currentAudio = null; 
     
     document.addEventListener('keydown', function(event) {
         const key = event.key;
         const audioSrc = audioFiles[key];
-    
         if (audioSrc) {
             if (currentAudio) {
                 currentAudio.pause();
                 currentAudio.currentTime = 0;
             }
-    
+            
             currentAudio = new Audio(audioSrc);
-            currentAudio.play();
-            speakerAudioIcon.style.border="5px solid yellow";
-            musicIcon.src = "src/assets/images/animate-music.gif";
-    
+            currentAudio.play().catch(error => console.error("Error playing the audio file:", error));
+            
             setTimeout(() => {
                 if (currentAudio) {
                     currentAudio.pause();
                     currentAudio.currentTime = 0;
-                    currentAudio = null;
-                    updateMusicIconForStop();
                 }
             }, 20000);
         } else {
-            if (currentAudio) {
-                currentAudio.pause();
-                currentAudio.currentTime = 0;
-                currentAudio = null;
-                speakerAudioIcon.style.border="5px solid #BAC8D3";
-
-                updateMusicIconForStop();
-            }
+            console.log("No audio file for this key.");
         }
     });
-    
-    
-    if (currentAudio) {
-        currentAudio.onended = function() {
-            updateMusicIconForStop();
-            currentAudio = null; 
-        };
-    }
-    
     
     
 
