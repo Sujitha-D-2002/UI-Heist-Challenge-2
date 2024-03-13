@@ -19,6 +19,13 @@ body {
   font-family: "Source Sans 3", sans-serif;
   font-style: normal;
 }
+.smoke{
+  position: absolute;
+  bottom: 550px;
+  right:30%;
+  width: 700px;
+  display: none;
+}
 
 .run-mode-screen {
   width: 40%;
@@ -153,17 +160,27 @@ body {
     transform: rotate(-90deg);
   }
 }
-.start-mode-screen {
-  margin-top: 30px;
+.start-mode-screen{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 173px;
+}
+.screen-div {
+  margin-top: -390px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  text-align: center;
+  text-align: center; 
 }
-.start-mode-screen > p:first-of-type {
+.hang-div{
+  margin-top: 120px;
+}
+.screen-div > p:first-of-type {
   color: white;
   text-transform: uppercase;
   font-size: 27px;
@@ -182,9 +199,16 @@ body {
   height: auto;
   cursor: pointer;
 }
+
 .hang-img{
   width: 331px;
   margin-top: -192px;
+}
+
+.mirror-img{
+  width: 450px;
+  margin-top: -180px;
+  transform: rotateX(180deg);
 }
 .hang-animate-img{
   width: 331px;

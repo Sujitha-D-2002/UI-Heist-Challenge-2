@@ -31,6 +31,12 @@ export function createRunModeScreen() {
         alt: "img"
     })
 
+    let smokeImage = createElement('img', {
+        className: "smoke",
+        src: 'src/assets/images/smoke.gif',
+        alt: "img"
+    })
+
 
     let leftContainer = createElement("div", { className: "left-icons-container" });
 
@@ -230,6 +236,7 @@ export function createRunModeScreen() {
     runModeScreen.appendChild(rightContainer);
     runModeScreen.appendChild(leftContainer);
     runModeScreen.appendChild(cameraIcon);
+    runModeScreen.appendChild(smokeImage);
 
     // return runModeScreen;
 
@@ -414,12 +421,14 @@ export function createRunModeScreen() {
             warnMsg.style.display = "none";
             hanganimateImage.src = "src/assets/images/monkey-fixed.png";
             let brakeaudio = new Audio('src/assets/audio/car-brake-fx.wav');
+            let smokeElements = document.getElementsByClassName("smoke");
+            if (smokeElements.length > 0) {
+                smokeElements[0].style.display = "block";
+            }
             document.body.style.backgroundImage = 'url("src/assets/images/Car-without-bg.png"), url("src/assets/images/bg-fixed.jpeg")';
             brakeaudio.play();
             isBrake = true;
             accelerateIcon.style.border = "4px solid yellow";
-
-
             brake();
         }
 
@@ -445,6 +454,11 @@ export function createRunModeScreen() {
 
         if ((event.key === "b" || event.key === "B") && isSecondPage) {
             let brakeaudio = new Audio('src/assets/audio/car-brake-fx.wav');
+            let smokeElements = document.getElementsByClassName("smoke");
+            accelerateIcon.style.border = "5px solid #BAC8D3";
+            if (smokeElements.length > 0) {
+                smokeElements[0].style.display = "none";
+            }
             brakeaudio.pause();
             isBrake = false;
             // startaudio.currentTime = 0;

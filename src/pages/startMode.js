@@ -6,9 +6,27 @@ export function createStartModeScreen() {
         className: "start-mode-screen"
     });
 
+    let mirrorDiv=createElement("div", {
+        className: "mirror-div",
+    });
+
+    let hangDiv=createElement("div", {
+        className: "hang-div",
+    });
+
+    let screenDiv=createElement("div",{
+        className:"screen-div"
+    })
+
     let startIcon = createElement("img", {
         className: "start-img",
         src: 'src/assets/icons/power-button-on.png',
+        alt: "img"
+    });
+
+    let mirrorImage=createElement("img", {
+        className: "mirror-img",
+        src: 'src/assets/images/mirror.png',
         alt: "img"
     });
 
@@ -27,11 +45,15 @@ export function createStartModeScreen() {
         className: "caption",
         textContent: APP_CONSTANTS.CAPTION,
     });
+    mirrorDiv.appendChild(mirrorImage);
+    hangDiv.appendChild(hangImage);
+    screenDiv.appendChild(startIcon);
+    screenDiv.appendChild(startMsg);
+    screenDiv.appendChild(caption);
 
-    startModeScreen.appendChild(hangImage);
-    startModeScreen.appendChild(startIcon);
-    startModeScreen.appendChild(startMsg);
-    startModeScreen.appendChild(caption);
+    startModeScreen.appendChild(mirrorDiv);
+    startModeScreen.appendChild(hangDiv);
+    startModeScreen.appendChild(screenDiv);
 
     return startModeScreen;
 }
